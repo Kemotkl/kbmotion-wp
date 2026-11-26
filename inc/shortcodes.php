@@ -16,7 +16,7 @@ function kbm_faq_data() {
 		),
 		'treningi' => array(
 			array( 'Jak zacząć współpracę z trenerem?', 'Najlepiej od treningu wdrożeniowego z konsultacją (ok. 60 minut, 99 zł). Poznamy Twoje cele, sprawdzimy technikę i ułożymy plan. Możesz też zapisać się na bezpłatną konsultację.' ),
-			array( 'Ile kosztuje trening personalny?', 'Pierwszy trening wdrożeniowy z konsultacją kosztuje 99 zł. Kolejne treningi zależą od trenera: 200 zł (Piotr, Tomasz, Patryk, Kasia) lub 150 zł (Gustave, Aleksander, Paweł). Pakiet 10 treningów z trenerem klubowym kosztuje 1499 zł.' ),
+			array( 'Ile kosztuje trening personalny?', 'Pierwszy trening wdrożeniowy z konsultacją kosztuje 99 zł. Kolejne treningi zależą od trenera: 200 zł (Piotr, Tomasz, Patryk, Kasia) lub 150 zł (Gustave, Aleksander, Paweł). Pakiet 10 treningów z trenerem klubowym kosztuje 1500 zł.' ),
 			array( 'Czy do treningów personalnych potrzebuję karnetu?', 'Tak, do treningów i pakietów potrzebny jest aktywny karnet na wejście do studia. Najkorzystniejszy jest karnet Siłownia z trenerem (219 zł/mies.) albo Siłownia 4 wejścia w miesiącu (149 zł).' ),
 			array( 'Czy mogę wybrać konkretnego trenera?', 'Tak. Przy pojedynczym treningu wybierasz trenera przy zakupie albo w formularzu rezerwacji, gdzie przy każdym nazwisku widać cenę. W pakiecie 10 treningów trenera dobiera klub.' ),
 			array( 'Jak odwołać trening?', 'Trening można odwołać lub przełożyć najpóźniej 24 godziny przed jego rozpoczęciem. Później trening może zostać uznany za zrealizowany.' ),
@@ -26,7 +26,7 @@ function kbm_faq_data() {
 			array( 'Gdzie jest studio i w jakich godzinach działa?', 'KB Motion mieści się przy ul. Nyskiej 61A we Wrocławiu. Studio jest otwarte codziennie od 06:00 do 23:00.' ),
 			array( 'Czym KB Motion różni się od zwykłej siłowni?', 'To kameralne studio treningu personalnego o powierzchni 250 m². Zamiast tłumu masz spokojną przestrzeń, strefę siłową i salę fitness oraz trenerów, którzy znają Cię z imienia.' ),
 			array( 'Jak zapisać się na zajęcia grupowe?', 'Na zajęcia zapisujesz się w aplikacji KB Motion. Wybierasz karnet na 4 lub 8 wejść w miesiącu albo wejście jednorazowe.' ),
-			array( 'Czy mogę kupić coś do picia na miejscu?', 'Tak. W bufecie są woda, kawa, napoje, odżywki KFD i ręczniki KB Motion. Możesz je też zamówić online i odebrać w studiu.' ),
+			array( 'Czy mogę kupić coś do picia na miejscu?', 'Tak. W bufecie są woda, kawa, napoje, odżywki KFD i ręczniki KB Motion.' ),
 		),
 	);
 }

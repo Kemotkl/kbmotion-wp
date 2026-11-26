@@ -66,7 +66,7 @@ add_shortcode( 'kbm_form', function ( $atts ) {
 				echo $f( 'trainer', 'contact' === $type ? 'Z którym trenerem chcesz się skontaktować?' : 'Preferowany trener', '<select id="' . $id( 'trainer' ) . '" name="trainer">' . $opts . '</select>' );
 			}
 			if ( 'trainer' === $type ) {
-				echo $f( 'package', 'Co Cię interesuje?', '<select id="' . $id( 'package' ) . '" name="package"><option>Pierwszy trening wdrożeniowy + konsultacja (99 zł)</option><option>Trening personalny (cena zależna od trenera)</option><option>Pakiet 10 treningów z trenerem klubowym (1499 zł)</option><option>Jeszcze nie wiem, doradźcie</option></select>' );
+				echo $f( 'package', 'Co Cię interesuje?', '<select id="' . $id( 'package' ) . '" name="package"><option>Pierwszy trening wdrożeniowy + konsultacja (99 zł)</option><option>Trening personalny (cena zależna od trenera)</option><option>Pakiet 10 treningów z trenerem klubowym (1500 zł)</option><option>Jeszcze nie wiem, doradźcie</option></select>' );
 				echo $f( 'when', 'Kiedy możesz trenować?', '<select id="' . $id( 'when' ) . '" name="when"><option>Rano (6–10)</option><option>W ciągu dnia (10–16)</option><option>Po pracy (16–20)</option><option>Wieczorem (20–23)</option><option>Elastycznie</option></select>' );
 			}
 			if ( 'trial' === $type ) {

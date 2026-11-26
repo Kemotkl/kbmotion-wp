@@ -8,6 +8,7 @@ function kbm_redirect_map() {
 		'regulamin'                                     => 'regulamin-studia',
 		'regulamin1'                                    => 'regulamin-aplikacji',
 		'en'                                            => '',
+		'blog'                                          => '',
 		'kaucja-050zl'                                  => 'bufet',
 		'woda-naleczowianka-niegazowana-05-l'           => 'produkt/woda-naleczowianka-niegazowana-0-5-l',
 		'woda-mineralna-naleczowianka-niegazowana-15-l' => 'produkt/woda-naleczowianka-niegazowana-1-5-l',
@@ -34,6 +35,11 @@ add_action( 'template_redirect', function () {
 	$map  = kbm_redirect_map();
 	if ( isset( $map[ $path ] ) ) {
 		wp_safe_redirect( home_url( '/' . ( $map[ $path ] ? $map[ $path ] . '/' : '' ) ), 301 );
+		exit;
+	}
+	// Former blog posts (now drafts) → home page.
+	if ( $path && false === strpos( $path, '/' ) && get_posts( array( 'name' => $path, 'post_type' => 'post', 'post_status' => 'draft', 'numberposts' => 1, 'fields' => 'ids' ) ) ) {
+		wp_safe_redirect( home_url( '/' ), 301 );
 		exit;
 	}
 } );

@@ -19,6 +19,10 @@ function kbm_media_sources() {
 		'studio7'       => array( $a . 'img_0330-7Q7T1V9V4NiIVrwp.JPG', 'Detale wnętrza KB Motion' ),
 		'studio8'       => array( $a . 'fe8a0141-vMkEGFATKh53foi9.jpg', 'KB Motion Wrocław' ),
 		'studio9'       => array( $a . 'jarz_2-eLl670y8yrLnpMov.jpg', 'KB Motion – studio' ),
+		't_a'           => array( $a . '9ec89c4f-f068-47d3-91f9-2343426e8469-5sIAVa0MnmHXtmzi.JPG', 'Trener KB Motion Wrocław' ),
+		't_b'           => array( $a . 'aa8ba88e-1705-4a8f-a531-59faa5ec1299-IcobbGwNwuDpDz2d.JPG', 'Trener KB Motion Wrocław' ),
+		't_c'           => array( $a . 'img_0086-bn5VJIZbPJ333aii.JPG', 'Trener KB Motion Wrocław' ),
+		't_d'           => array( $a . 'img_0035-jYxtm6Z3yWtA3Mtd.JPG', 'Trener KB Motion Wrocław' ),
 		'p_woda05'      => array( $s . 'e3a8470f-cce5-404d-ae73-a8b999478cf7.png', 'Woda Nałęczowianka 0,5 l' ),
 		'p_woda15'      => array( $s . 'a026c63d-9d9b-4b1d-a956-39220fc731af.png', 'Woda Nałęczowianka 1,5 l' ),
 		'p_spritz'      => array( $s . '23ae0eca-bae6-4bef-8231-e377e8eca864.webp', 'WRCLW Spritz bezalkoholowy' ),
@@ -89,7 +93,7 @@ function kbm_products_data() {
 			'vars' => 'TRAINERS',
 			'short' => $ul( array( 'Ty wybierasz trenera', 'Cena zależy od trenera: 150 lub 200 zł', 'Bez zobowiązań' ) ),
 			'desc' => '<p>Trening personalny z wybranym trenerem KB Motion. Cena zależy od trenera: 200 zł (Piotr, Tomasz, Patryk, Kasia) lub 150 zł (Gustave, Aleksander, Paweł). Termin potwierdzamy telefonicznie w ciągu jednego dnia roboczego.</p>' ),
-		array( 'slug' => 'pakiet-10-treningow-personalnych', 'name' => 'Pakiet 10 treningów personalnych', 'cat' => 'treningi-personalne', 'type' => 'simple', 'price' => 1499, 'unit' => '', 'order' => 3,
+		array( 'slug' => 'pakiet-10-treningow-personalnych', 'name' => 'Pakiet 10 treningów personalnych', 'cat' => 'treningi-personalne', 'type' => 'simple', 'price' => 1500, 'unit' => '', 'order' => 3,
 			'short' => $ul( array( '10 treningów z trenerem klubowym', 'Trenera dobiera klub', 'Wymagany aktywny karnet' ) ),
 			'desc' => '<p>Pakiet 10 treningów personalnych z trenerem klubowym. Trenera dobiera klub, dopasowując go do Twojego celu i dostępnych terminów. Jeśli chcesz trenować z konkretną osobą, wybierz pojedynczy trening personalny z wybranym trenerem. Przy pakiecie wymagany jest aktywny karnet (np. Siłownia z trenerem).</p>' ),
 
@@ -137,7 +141,7 @@ function kbm_posts_data() {
 <h2>4. Co z dietą?</h2><p>Trening to połowa sukcesu, szczególnie przy redukcji tkanki tłuszczowej. Zapytaj, czy trener pomoże w podstawach żywienia: ile jeść, jak komponować posiłki, jak nie wpadać w efekt jo-jo. Uważaj na obietnice „cudownych diet”.</p>
 <h2>5. Jak pracujesz z kontuzjami?</h2><p>Ból pleców, kolana czy barku nie wyklucza treningu, ale wymaga doświadczenia. Trener powinien znać zasady bezpiecznej progresji i wiedzieć, kiedy odesłać do fizjoterapeuty.</p>
 <h2>6. Gdzie i w jakich warunkach trenujemy?</h2><p>Zatłoczona siłownia to kolejki do sprzętu i rozproszenie. Kameralne studio pozwala trenować bez czekania i w spokoju, co przekłada się na jakość każdej minuty treningu.</p>
-<h2>7. Ile to kosztuje i co dostaję w cenie?</h2><p>Porównuj nie tylko cenę za godzinę, ale też to, co zawiera: plan, kontakt między treningami, pomiary. W KB Motion pierwszy trening wdrożeniowy z konsultacją kosztuje 99 zł, kolejne treningi od 150 zł, a pakiet 10 treningów z trenerem klubowym 1499 zł.</p>
+<h2>7. Ile to kosztuje i co dostaję w cenie?</h2><p>Porównuj nie tylko cenę za godzinę, ale też to, co zawiera: plan, kontakt między treningami, pomiary. W KB Motion pierwszy trening wdrożeniowy z konsultacją kosztuje 99 zł, kolejne treningi od 150 zł, a pakiet 10 treningów z trenerem klubowym 1500 zł.</p>
 <h2>Podsumowanie</h2><p>Wybieraj trenera, który zadaje pytania, słucha i tłumaczy, co i dlaczego robicie. Najprościej sprawdzić to na konsultacji. <a href="/trening-probny/">Umów bezpłatną konsultację</a> albo zacznij od <a href="/treningi-personalne/">treningu wdrożeniowego za 99 zł</a>.</p>',
 		),
 		array(

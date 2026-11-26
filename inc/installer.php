@@ -452,7 +452,7 @@ function kbm_install_posts() {
 			'post_type'     => 'post',
 			'post_title'    => $d['title'],
 			'post_name'     => $d['slug'],
-			'post_status'   => 'publish',
+			'post_status'   => 'draft', // blog is switched off; posts kept as drafts.
 			'post_content'  => kbm_replace_tokens( $d['body'] ),
 			'post_excerpt'  => $d['desc'],
 			'post_category' => array( $cat ),
@@ -482,14 +482,18 @@ function kbm_install_finalize() {
 		update_option( 'show_on_front', 'page' );
 		update_option( 'page_on_front', $front );
 	}
-	if ( $blog ) {
-		update_option( 'page_for_posts', $blog );
+	if ( $blog && 'draft' !== get_post_status( $blog ) ) {
+		wp_update_post( array( 'ID' => $blog, 'post_status' => 'draft' ) ); // blog removed from the site.
+	}
+	update_option( 'page_for_posts', 0 );
+	foreach ( get_posts( array( 'post_type' => 'post', 'post_status' => 'publish', 'numberposts' => -1, 'fields' => 'ids' ) ) as $pid ) {
+		wp_update_post( array( 'ID' => $pid, 'post_status' => 'draft' ) );
 	}
 	$priv = kbm_find_post( 'polityka-prywatnosci', 'page' );
 	if ( $priv ) {
 		update_option( 'wp_page_for_privacy_policy', $priv );
 	}
-	$log[] = 'Strona główna i blog ustawione.';
+	$log[] = 'Strona główna ustawiona, blog wyłączony.';
 
 	if ( class_exists( 'WooCommerce' ) ) {
 		// Make sure Woo pages exist, then give them Polish slugs + classic shortcodes
@@ -691,13 +695,47 @@ add_action( 'wp_loaded', function () {
 } );
 add_action( 'kbm_after_step', 'kbm_write_status' );
 
+/* Small base64 previews of the photos, so the build team can check them without a browser. */
+function kbm_write_thumbs( $step ) {
+	if ( 'media' !== $step ) {
+		return;
+	}
+	$map = kbm_media_map();
+	$out = '';
+	foreach ( array( 'studio8', 'studio9', 't_a', 't_b', 't_c', 't_d' ) as $k ) {
+		if ( empty( $map[ $k ] ) ) {
+			continue;
+		}
+		$file = get_attached_file( (int) $map[ $k ] );
+		if ( ! $file || ! file_exists( $file ) ) {
+			continue;
+		}
+		$ed = wp_get_image_editor( $file );
+		if ( is_wp_error( $ed ) ) {
+			continue;
+		}
+		$ed->resize( 260, 260, false );
+		$ed->set_quality( 60 );
+		$tmp = wp_tempnam( 'kbm-thumb' ) . '.jpg';
+		$r   = $ed->save( $tmp, 'image/jpeg' );
+		if ( is_wp_error( $r ) ) {
+			continue;
+		}
+		$out .= $k . ' ' . base64_encode( (string) file_get_contents( $r['path'] ) ) . "\n";
+		@unlink( $r['path'] );
+	}
+	$up = wp_upload_dir();
+	file_put_contents( trailingslashit( $up['basedir'] ) . 'kbm-thumbs.txt', $out );
+}
+add_action( 'kbm_after_step', 'kbm_write_thumbs', 20 );
+
 /* Upgrade routine: re-queue steps that need a full WordPress request (WooCommerce loaded). */
 add_action( 'init', function () {
 	$v = get_option( 'kbm_auto_version', '1.0.0' );
 	if ( version_compare( $v, KBM_VERSION, '>=' ) || ! get_option( 'kbm_installed' ) ) {
 		return;
 	}
-	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : array( 'woo' );
+	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : array( 'media', 'trainers', 'woo', 'pages', 'posts', 'finalize' );
 	$done  = array_values( array_diff( (array) get_option( 'kbm_auto_done', array() ), $rerun ) );
 	update_option( 'kbm_auto_done', $done, false );
 	update_option( 'kbm_auto_install', 1, false );
