@@ -61,7 +61,7 @@ img{max-width:100%;height:auto}
 	.kbm-mbar{position:fixed;left:0;right:0;bottom:0;z-index:95;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(11,11,12,.96);backdrop-filter:blur(10px);border-top:1px solid var(--kbm-line)}
 	.kbm-mbar__btn{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;border:1.5px solid rgba(255,255,255,.35);color:#fff;font-weight:700;text-decoration:none;font-size:.95rem}
 	.kbm-mbar__btn--gold{background:var(--kbm-gold);border-color:var(--kbm-gold);color:#111}
-	body:not(.kbm-no-mbar){padding-bottom:76px}
+	body:not(.kbm-no-mbar) .kbm-footer::after{content:"";display:block;height:76px}
 	.kbm-consent{bottom:84px}
 }
 
@@ -216,3 +216,9 @@ img{max-width:100%;height:auto}
 .kbm-deposit-note{font-size:.9rem;color:var(--kbm-muted,#6b6b6b);margin:.4em 0 1em}
 .alignfull.has-global-padding,.kbm-hero .wp-block-cover__inner-container{padding-left:var(--wp--style--root--padding-left)!important;padding-right:var(--wp--style--root--padding-right)!important}
 @media (max-width:781px){body:not(.kbm-no-mbar) .kbm-consent{bottom:calc(80px + env(safe-area-inset-bottom))}body:not(.kbm-no-mbar) .kbm-chat-fab,body:not(.kbm-no-mbar) .kbm-chat{bottom:calc(84px + env(safe-area-inset-bottom))!important}}
+/* Product grids (bufet, sklep, kategorie): CSS grid instead of Woo floats */
+.woocommerce ul.products{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;margin:0 0 2em!important;padding:0}
+.woocommerce ul.products::before,.woocommerce ul.products::after{display:none!important;content:none!important}
+.woocommerce ul.products li.product{width:auto!important;float:none!important;margin:0!important;display:flex;flex-direction:column;clear:none!important}
+.woocommerce ul.products li.product .button{margin-top:auto;align-self:flex-start}
+@media (max-width:600px){.woocommerce ul.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.woocommerce ul.products li.product{padding:10px 10px 14px!important}.woocommerce ul.products li.product .button{font-size:.82rem;padding:.6em 1em;align-self:stretch;text-align:center}}
