@@ -6,7 +6,7 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-define( 'KBM_SELFTEST_REV', 3 );
+define( 'KBM_SELFTEST_REV', 4 );
 
 function kbm_st_get( $url, $args = array() ) {
 	$args = wp_parse_args( $args, array( 'timeout' => 20, 'redirection' => 0, 'sslverify' => false, 'user-agent' => 'KBM-Selftest' ) );
@@ -83,12 +83,16 @@ function kbm_selftest_run() {
 			}
 			continue;
 		}
+		$ct = is_object( $h ) || is_array( $h ) ? (string) ( $h['content-type'] ?? '' ) : '';
+		if ( $ct && false === stripos( $ct, 'text/html' ) ) {
+			continue; // image or file link
+		}
 		foreach ( array( 'Fatal error', 'Warning:</b>', 'Notice:</b>', 'Deprecated:</b>', '[kbm_', '{{img', '{{prod', 'Parse error' ) as $bad ) {
 			if ( false !== strpos( $body, $bad ) ) {
 				$issues[] = 'Tekst "' . $bad . '" na ' . $url;
 			}
 		}
-		if ( preg_match_all( '/<a\s[^>]*href=["\']([^"\']+)["\']/i', $body, $m ) ) {
+		if ( preg_match_all( '/<a\s(?:[^>]*\s)?href=["\']([^"\']+)["\']/i', $body, $m ) ) {
 			foreach ( $m[1] as $href ) {
 				$n = kbm_st_norm( $href, $url );
 				if ( $n && ! isset( $seen[ $n ] ) ) {
@@ -104,7 +108,7 @@ function kbm_selftest_run() {
 				}
 			}
 		}
-		if ( preg_match_all( '/<(?:img|source)\s[^>]*(?:src|srcset)=["\']([^"\'\s,]+)/i', $body, $m ) ) {
+		if ( preg_match_all( '/<(?:img|source)\s(?:[^>]*\s)?(?:src|srcset)=["\']([^"\'\s,]+)/i', $body, $m ) ) {
 			foreach ( $m[1] as $src ) {
 				$n = kbm_st_norm( $src, $url );
 				if ( $n ) {

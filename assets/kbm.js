@@ -154,6 +154,7 @@
 	fab.innerHTML = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/></svg><span class="kbm-chat-fab__dot"></span>';
 	var box = document.createElement('section');
 	box.className = 'kbm-chat';
+	box.id = 'czat';
 	box.hidden = true;
 	box.setAttribute('aria-label', 'Czat z asystentem KB Motion');
 	box.innerHTML = '<header class="kbm-chat__head"><span class="kbm-chat__avatar">KB</span><div><div class="kbm-chat__title">' + C.chatName + '</div><div class="kbm-chat__sub">Odpowiadam od razu, 24/7</div></div><button class="kbm-chat__close" type="button" aria-label="Zamknij czat">×</button></header>' +
@@ -205,6 +206,7 @@
 	document.querySelectorAll('[data-kbm-chat-open], a[href="#czat"]').forEach(function (el) {
 		el.addEventListener('click', function (e) { e.preventDefault(); toggle(true); });
 	});
+	if (location.hash === '#czat') { toggle(true); }
 	chips.addEventListener('click', function (e) {
 		if (e.target.tagName === 'BUTTON') send(e.target.textContent);
 	});
