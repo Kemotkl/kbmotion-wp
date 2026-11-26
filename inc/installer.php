@@ -669,3 +669,32 @@ add_action( 'wp_loaded', function () {
 	}
 } );
 add_action( 'kbm_after_step', 'kbm_write_status' );
+
+/* Upgrade routine: re-queue steps that need a full WordPress request (WooCommerce loaded). */
+add_action( 'init', function () {
+	$v = get_option( 'kbm_auto_version', '1.0.0' );
+	if ( version_compare( $v, KBM_VERSION, '>=' ) || ! get_option( 'kbm_installed' ) ) {
+		return;
+	}
+	$rerun = array( 'woo', 'pages', 'finalize' );
+	$done  = array_values( array_diff( (array) get_option( 'kbm_auto_done', array() ), $rerun ) );
+	update_option( 'kbm_auto_done', $done, false );
+	update_option( 'kbm_auto_install', 1, false );
+	update_option( 'kbm_auto_version', KBM_VERSION, false );
+	kbm_dedupe_media();
+}, 5 );
+
+/* Remove duplicate media created by an interrupted first install (only our own kb-motion-* files not in the media map). */
+function kbm_dedupe_media() {
+	$keep = array_map( 'intval', array_values( kbm_media_map() ) );
+	if ( count( $keep ) < 10 ) {
+		return;
+	}
+	$q = get_posts( array( 'post_type' => 'attachment', 'post_status' => 'inherit', 'numberposts' => 200, 'fields' => 'ids' ) );
+	foreach ( $q as $id ) {
+		$file = (string) get_post_meta( $id, '_wp_attached_file', true );
+		if ( ! in_array( (int) $id, $keep, true ) && preg_match( '#(^|/)kb-motion-[a-z0-9-]+\.(jpe?g|png|webp)$#i', $file ) && ! (int) wp_get_post_parent_id( $id ) ) {
+			wp_delete_attachment( $id, true );
+		}
+	}
+}
