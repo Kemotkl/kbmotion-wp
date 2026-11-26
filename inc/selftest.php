@@ -6,7 +6,7 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-define( 'KBM_SELFTEST_REV', 5 );
+define( 'KBM_SELFTEST_REV', 6 );
 
 function kbm_st_get( $url, $args = array() ) {
 	$args = wp_parse_args( $args, array( 'timeout' => 20, 'redirection' => 0, 'sslverify' => false, 'user-agent' => 'KBM-Selftest' ) );
@@ -169,7 +169,7 @@ function kbm_selftest_run() {
 			}
 		}
 	}
-	$cart = kbm_selftest_cart();
+	$cart = array_merge( kbm_selftest_cart(), array( '', '== ZAKUP PRZEZ PRZYCISK KUP TERAZ ==' ), kbm_selftest_checkout() );
 	$rest = array();
 	foreach ( array( 'kbm/v1/form', 'kbm/v1/chat' ) as $route ) {
 		list( $code, $b ) = kbm_st_get( rest_url( $route ), array( 'method' => 'POST', 'body' => array() ) );
@@ -325,3 +325,56 @@ add_action( 'init', function () {
 		delete_transient( 'kbm_selftest_lock' );
 	}, 1000 );
 }, 100 );
+
+/* The real button path: GET checkout?add-to-cart=… with cookies, like a browser. */
+function kbm_selftest_checkout() {
+	$log   = array();
+	$cases = array();
+	$s     = wc_get_product( kbm_find_post( 'silownia', 'product' ) );
+	if ( $s && $s->is_type( 'variable' ) ) {
+		$vs = $s->get_available_variations( 'objects' );
+		if ( $vs ) {
+			$v = $vs[1] ?? $vs[0];
+			$q = array( 'add-to-cart' => $s->get_id(), 'variation_id' => $v->get_id() );
+			foreach ( $v->get_variation_attributes() as $k => $val ) {
+				$q[ $k ] = $val;
+			}
+			$cases['Siłownia (wariant 2)'] = $q;
+		}
+	}
+	$cases['Siłownia z trenerem'] = array( 'add-to-cart' => kbm_find_post( 'silownia-z-trenerem', 'product' ) );
+	$cases['Woda 0,5 l (kaucja)'] = array( 'add-to-cart' => kbm_find_post( 'woda-naleczowianka-niegazowana-0-5-l', 'product' ) );
+	foreach ( $cases as $label => $q ) {
+		$url     = add_query_arg( $q, wc_get_checkout_url() );
+		$cookies = array();
+		$body    = '';
+		$code    = 0;
+		for ( $i = 0; $i < 4; $i++ ) {
+			$r = wp_remote_get( $url, array( 'timeout' => 20, 'redirection' => 0, 'sslverify' => false, 'cookies' => array_values( $cookies ), 'user-agent' => 'KBM-Selftest' ) );
+			if ( is_wp_error( $r ) ) {
+				$log[] = $label . ': błąd ' . $r->get_error_message();
+				continue 2;
+			}
+			foreach ( wp_remote_retrieve_cookies( $r ) as $c ) {
+				$cookies[ $c->name ] = $c;
+			}
+			$code = (int) wp_remote_retrieve_response_code( $r );
+			$loc  = wp_remote_retrieve_header( $r, 'location' );
+			if ( $code >= 300 && $code < 400 && $loc ) {
+				$url = $loc;
+				continue;
+			}
+			$body = wp_remote_retrieve_body( $r );
+			break;
+		}
+		$name  = wp_strip_all_tags( get_the_title( $q['add-to-cart'] ) );
+		$has   = false !== strpos( $body, esc_html( $name ) ) || false !== strpos( $body, $name );
+		$form  = false !== strpos( $body, 'woocommerce-checkout' );
+		$pay   = preg_match_all( '/<li class="wc_payment_method/', $body );
+		$nopay = false !== stripos( $body, 'brak dostępnych metod płatności' ) || false !== stripos( $body, 'no available payment methods' );
+		$err   = preg_match_all( '/<ul class="woocommerce-error"[^>]*>(.*?)<\/ul>/s', $body, $m ) ? wp_strip_all_tags( implode( ' ', $m[1] ) ) : '';
+		$fee   = false !== strpos( $body, 'Kaucja' );
+		$log[] = $label . ': HTTP ' . $code . ' -> ' . str_replace( home_url(), '', $url ) . ' | produkt w zamówieniu: ' . ( $has ? 'tak' : 'NIE' ) . ' | formularz zamówienia: ' . ( $form ? 'tak' : 'NIE' ) . ' | metody płatności: ' . $pay . ( $nopay ? ' (komunikat: brak metod płatności)' : '' ) . ( $fee ? ' | kaucja: tak' : '' ) . ( $err ? ' | BŁĄD: ' . trim( preg_replace( '/\s+/', ' ', $err ) ) : '' );
+	}
+	return $log;
+}

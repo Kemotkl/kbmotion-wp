@@ -1,4 +1,13 @@
 /* KB Motion Core – forms, pricing variants, map, cookie consent, AI chat. No dependencies. */
+document.addEventListener('DOMContentLoaded', function () {
+	try {
+		var t = new URLSearchParams(location.search).get('trener');
+		if (!t) return;
+		document.querySelectorAll('select[name="trainer"]').forEach(function (s) {
+			for (var i = 0; i < s.options.length; i++) { if (s.options[i].value === t) { s.selectedIndex = i; break; } }
+		});
+	} catch (e) {}
+});
 (function () {
 	'use strict';
 	var C = window.KBM || {};

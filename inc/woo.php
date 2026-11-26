@@ -262,3 +262,33 @@ add_action( 'woocommerce_single_product_summary', function () {
 		echo '<p class="kbm-deposit-note">+ 0,50 zł kaucji za butelkę (zwrotna przy oddaniu butelki w studiu).</p>';
 	}
 }, 11 );
+
+/* Single product: show the short description with its list (the excerpt block strips HTML). */
+add_filter( 'render_block_core/post-excerpt', function ( $html ) {
+	if ( ! function_exists( 'is_product' ) || ! is_product() ) {
+		return $html;
+	}
+	$p = get_post();
+	if ( ! $p || '' === trim( (string) $p->post_excerpt ) ) {
+		return $html;
+	}
+	return '<div class="wp-block-post-excerpt kbm-short woocommerce-product-details__short-description">' . wp_kses_post( $p->post_excerpt ) . '</div>';
+}, 20 );
+
+/* Strings missing in the Polish WooCommerce translation. */
+add_filter( 'ngettext_woocommerce', function ( $t, $single, $plural, $n ) {
+	if ( 'Category:' === $single ) {
+		return 1 === (int) $n ? 'Kategoria:' : 'Kategorie:';
+	}
+	if ( 'Tag:' === $single ) {
+		return 1 === (int) $n ? 'Tag:' : 'Tagi:';
+	}
+	return $t;
+}, 10, 4 );
+add_filter( 'gettext_woocommerce', function ( $t, $orig ) {
+	$map = array( 'Category:' => 'Kategoria:', 'Categories:' => 'Kategorie:' );
+	return $map[ $orig ] ?? $t;
+}, 10, 2 );
+add_filter( 'render_block_core/post-terms', function ( $html ) {
+	return str_replace( array( '__prefix">Category: <', '__prefix">Categories: <', '__prefix">Tags: <', '__prefix">Tag: <' ), array( '__prefix">Kategoria: <', '__prefix">Kategorie: <', '__prefix">Tagi: <', '__prefix">Tag: <' ), $html );
+} );
