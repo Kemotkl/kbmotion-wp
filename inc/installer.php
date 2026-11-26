@@ -388,6 +388,12 @@ function kbm_install_trainers() {
 		update_post_meta( $id, '_kbm_role', $role );
 		update_post_meta( $id, '_kbm_tags', $tags );
 		update_post_meta( $id, '_kbm_price', $price ?: '' );
+		$photo = $t[6] ?? '';
+		$pmap  = kbm_media_map();
+		if ( $photo && ! empty( $pmap[ $photo ] ) ) {
+			set_post_thumbnail( $id, (int) $pmap[ $photo ] );
+			update_post_meta( (int) $pmap[ $photo ], '_wp_attachment_image_alt', $name . ' – trener KB Motion Wrocław' );
+		}
 		if ( $owner ) {
 			update_post_meta( $id, '_kbm_is_owner', '1' );
 		} else {
@@ -695,39 +701,15 @@ add_action( 'wp_loaded', function () {
 } );
 add_action( 'kbm_after_step', 'kbm_write_status' );
 
-/* Small base64 previews of the photos, so the build team can check them without a browser. */
-function kbm_write_thumbs( $step ) {
-	if ( 'media' !== $step ) {
-		return;
+/* Remove temporary build files from earlier versions. */
+add_action( 'kbm_after_step', function () {
+	$up = trailingslashit( wp_upload_dir()['basedir'] );
+	foreach ( array( 'kbm-thumbs.txt', 'kbm-trenerzy.html' ) as $f ) {
+		if ( file_exists( $up . $f ) ) {
+			@unlink( $up . $f );
+		}
 	}
-	$map = kbm_media_map();
-	$out = '';
-	foreach ( array( 'studio8', 'studio9', 't_a', 't_b', 't_c', 't_d' ) as $k ) {
-		if ( empty( $map[ $k ] ) ) {
-			continue;
-		}
-		$file = get_attached_file( (int) $map[ $k ] );
-		if ( ! $file || ! file_exists( $file ) ) {
-			continue;
-		}
-		$ed = wp_get_image_editor( $file );
-		if ( is_wp_error( $ed ) ) {
-			continue;
-		}
-		$ed->resize( 260, 260, false );
-		$ed->set_quality( 60 );
-		$tmp = wp_tempnam( 'kbm-thumb' ) . '.jpg';
-		$r   = $ed->save( $tmp, 'image/jpeg' );
-		if ( is_wp_error( $r ) ) {
-			continue;
-		}
-		$out .= $k . ' ' . base64_encode( (string) file_get_contents( $r['path'] ) ) . "\n";
-		@unlink( $r['path'] );
-	}
-	$up = wp_upload_dir();
-	file_put_contents( trailingslashit( $up['basedir'] ) . 'kbm-thumbs.txt', $out );
-}
-add_action( 'kbm_after_step', 'kbm_write_thumbs', 20 );
+}, 30 );
 
 /* Upgrade routine: re-queue steps that need a full WordPress request (WooCommerce loaded). */
 add_action( 'init', function () {
@@ -735,7 +717,7 @@ add_action( 'init', function () {
 	if ( version_compare( $v, KBM_VERSION, '>=' ) || ! get_option( 'kbm_installed' ) ) {
 		return;
 	}
-	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : ( version_compare( $v, '1.0.4', '<' ) ? array( 'media', 'trainers', 'woo', 'pages', 'posts', 'finalize' ) : array( 'finalize' ) );
+	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : ( version_compare( $v, '1.0.4', '<' ) ? array( 'media', 'trainers', 'woo', 'pages', 'posts', 'finalize' ) : array( 'trainers', 'pages' ) );
 	$done  = array_values( array_diff( (array) get_option( 'kbm_auto_done', array() ), $rerun ) );
 	update_option( 'kbm_auto_done', $done, false );
 	update_option( 'kbm_auto_install', 1, false );
@@ -758,15 +740,3 @@ function kbm_dedupe_media() {
 	}
 }
 
-/* One-off: keep a copy of the old trainers page markup (photo ↔ name layout) for the build team. */
-add_action( 'shutdown', function () {
-	if ( get_option( 'kbm_tr_snapshot' ) || wp_doing_ajax() || is_admin() ) {
-		return;
-	}
-	update_option( 'kbm_tr_snapshot', 1, false );
-	$r = wp_remote_get( 'https://kbmotion.pl/trenerzy', array( 'timeout' => 20 ) );
-	if ( ! is_wp_error( $r ) ) {
-		$up = wp_upload_dir();
-		file_put_contents( trailingslashit( $up['basedir'] ) . 'kbm-trenerzy.html', (string) wp_remote_retrieve_body( $r ) );
-	}
-}, 99 );

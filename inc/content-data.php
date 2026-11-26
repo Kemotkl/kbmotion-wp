@@ -41,16 +41,16 @@ function kbm_media_sources() {
 }
 
 function kbm_trainers_data() {
-	// name, role, tags, owner, order, price per training (PLN, 0 = no personal training)
+	// name, role, tags, owner, order, price per training (PLN, 0 = no personal training), photo (media key)
 	return array(
 		array( 'Piotr Brzóstowicz', 'Właściciel · trener personalny', '', 1, 1, 200 ),
 		array( 'Tomasz Kluzek', 'Właściciel · trener personalny', 'redukcja, siła, dietetyka', 1, 2, 200 ),
-		array( 'Patryk Górecki', 'Treningi personalne', '', 0, 3, 200 ),
-		array( 'Kasia Górecka', 'Treningi personalne', '', 0, 4, 200 ),
-		array( 'Gustave Cordonnier', 'Treningi personalne', '', 0, 5, 150 ),
-		array( 'Aleksander Przychodzeń', 'Treningi personalne', '', 0, 6, 150 ),
+		array( 'Patryk Górecki', 'Treningi personalne', '', 0, 3, 200, 'studio9' ),
+		array( 'Kasia Górecka', 'Treningi personalne', '', 0, 4, 200, 't_b' ),
+		array( 'Gustave Cordonnier', 'Treningi personalne', '', 0, 5, 150, 't_a' ),
+		array( 'Aleksander Przychodzeń', 'Treningi personalne', '', 0, 6, 150, 't_c' ),
 		array( 'Paweł', 'Treningi personalne', '', 0, 7, 150 ),
-		array( 'Agata Kublicka', 'Zajęcia grupowe', '', 0, 8, 0 ),
+		array( 'Agata Kublicka', 'Zajęcia grupowe', '', 0, 8, 0, 't_d' ),
 	);
 }
 

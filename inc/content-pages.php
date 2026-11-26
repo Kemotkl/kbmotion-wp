@@ -155,7 +155,7 @@ function kbm_pages_content() {
 	/* ---------------- TRENERZY ---------------- */
 	$tr  = kbm_section(
 		kbm_head( 'Zespół KB Motion', 'Profesjonalna kadra.<br>Świadomy ruch.', 'Wierzymy, że świadomy ruch to klucz do trwałego zdrowia, komfortu i pełnej swobody w każdym aspekcie życia.', false, 'h1' )
-		. kbm_html( '<h2 class="kbm-eyebrow" style="margin-top:12px">Właściciele</h2>' ) . kbm_sc( '[kbm_trainers owners="1"]' ),
+		. kbm_html( '<h2 class="kbm-eyebrow" style="margin-top:12px">Właściciele</h2><figure class="kbm-owners-photo"><img src="{{img:studio8}}" alt="Piotr Brzóstowicz i Tomasz Kluzek, właściciele KB Motion Wrocław" loading="lazy" width="768" height="854"></figure>' ) . kbm_sc( '[kbm_trainers owners="1"]' ),
 		'is-dark'
 	);
 	$tr .= kbm_section( kbm_head( 'Trenerzy', 'Nasi trenerzy', 'Każdy z naszych trenerów to ekspert w swojej dziedzinie, z pasją do świadomego ruchu i indywidualnego podejścia do podopiecznych.' ) . kbm_sc( '[kbm_trainers owners="0"]' ) );
