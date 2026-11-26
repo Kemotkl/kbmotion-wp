@@ -535,6 +535,10 @@ function kbm_install_finalize() {
 		update_option( 'woocommerce_checkout_privacy_policy_text', 'Twoje dane osobowe zostaną wykorzystane do realizacji zamówienia, obsługi karnetu i w innych celach opisanych w naszej [privacy_policy].' );
 		update_option( 'woocommerce_registration_privacy_policy_text', 'Twoje dane osobowe zostaną wykorzystane do obsługi konta i w innych celach opisanych w naszej [privacy_policy].' );
 		update_option( 'woocommerce_checkout_terms_and_conditions_checkbox_text', 'Przeczytałem/am i akceptuję [terms] *' );
+		$wcp = (array) get_option( 'woocommerce_permalinks', array() );
+		$wcp['product_base']  = '/produkt';
+		$wcp['category_base'] = 'kategoria-produktu';
+		update_option( 'woocommerce_permalinks', $wcp );
 		$log[] = 'Strony sklepu: /sklep/, /koszyk/, /zamowienie/, /moje-konto/; regulamin podpięty do zamówienia.';
 	}
 	flush_rewrite_rules( false );
@@ -717,7 +721,7 @@ add_action( 'init', function () {
 	if ( version_compare( $v, KBM_VERSION, '>=' ) || ! get_option( 'kbm_installed' ) ) {
 		return;
 	}
-	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : ( version_compare( $v, '1.0.4', '<' ) ? array( 'media', 'trainers', 'woo', 'pages', 'posts', 'finalize' ) : array( 'trainers', 'pages' ) );
+	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : ( version_compare( $v, '1.0.4', '<' ) ? array( 'media', 'trainers', 'woo', 'pages', 'posts', 'finalize' ) : array( 'finalize' ) );
 	$done  = array_values( array_diff( (array) get_option( 'kbm_auto_done', array() ), $rerun ) );
 	update_option( 'kbm_auto_done', $done, false );
 	update_option( 'kbm_auto_install', 1, false );

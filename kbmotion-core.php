@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       KB Motion Core
  * Description:       Funkcje strony KB Motion: trenerzy, grafik, opinie, formularze z RODO i antyspamem, AI asystent, SEO (schema ExerciseGym), baner cookies z Consent Mode, integracja WooCommerce (karnety, treningi, bufet) oraz instalator treści.
- * Version:           1.0.6
+ * Version:           1.0.7
  * Requires at least: 6.5
  * Requires PHP:      8.0
  * Author:            KB Motion
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'KBM_VERSION', '1.0.6' );
+define( 'KBM_VERSION', '1.0.7' );
 define( 'KBM_FILE', __FILE__ );
 define( 'KBM_DIR', plugin_dir_path( __FILE__ ) );
 define( 'KBM_URL', plugin_dir_url( __FILE__ ) );
@@ -28,6 +28,7 @@ require_once KBM_DIR . 'inc/woo.php';
 require_once KBM_DIR . 'inc/security.php';
 require_once KBM_DIR . 'inc/redirects.php';
 require_once KBM_DIR . 'inc/installer.php';
+require_once KBM_DIR . 'inc/selftest.php';
 
 add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_style( 'kbm-core', KBM_URL . 'assets/kbm.css', array(), KBM_VERSION );

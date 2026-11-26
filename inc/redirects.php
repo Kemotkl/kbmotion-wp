@@ -37,6 +37,10 @@ add_action( 'template_redirect', function () {
 		wp_safe_redirect( home_url( '/' . ( $map[ $path ] ? $map[ $path ] . '/' : '' ) ), 301 );
 		exit;
 	}
+	if ( 0 === strpos( $path, 'product/' ) ) { // product base changed to /produkt/
+		wp_safe_redirect( home_url( '/produkt/' . substr( $path, 8 ) . '/' ), 301 );
+		exit;
+	}
 	// Former blog posts (now drafts) → home page.
 	if ( $path && false === strpos( $path, '/' ) && get_posts( array( 'name' => $path, 'post_type' => 'post', 'post_status' => 'draft', 'numberposts' => 1, 'fields' => 'ids' ) ) ) {
 		wp_safe_redirect( home_url( '/' ), 301 );
