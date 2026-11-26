@@ -32,6 +32,7 @@ function kbm_install_step( $step ) {
 	}
 	$log = call_user_func( $fn );
 	update_option( 'kbm_install_done_' . $step, time(), false );
+	do_action( 'kbm_after_step', $step );
 	return $log;
 }
 
@@ -628,3 +629,43 @@ add_action( 'init', function () {
 		delete_transient( 'kbm_auto_lock' );
 	}, 999 );
 }, 99 );
+
+/* Status file for remote diagnostics (no personal data): wp-content/uploads/kbm-status.txt */
+function kbm_write_status() {
+	$up = wp_upload_dir( null, false );
+	if ( empty( $up['basedir'] ) ) {
+		return;
+	}
+	$counts = array();
+	foreach ( array( 'page', 'post', 'product', 'kbm_trainer', 'attachment' ) as $t ) {
+		$c = wp_count_posts( $t );
+		$counts[ $t ] = $t === 'attachment' ? (int) ( $c->inherit ?? 0 ) : (int) ( $c->publish ?? 0 );
+	}
+	$data = array(
+		'time'        => gmdate( 'c' ),
+		'version'     => KBM_VERSION,
+		'installed'   => get_option( 'kbm_installed' ),
+		'auto_flag'   => get_option( 'kbm_auto_install' ),
+		'auto_done'   => get_option( 'kbm_auto_done' ),
+		'auto_log'    => get_option( 'kbm_auto_log' ),
+		'counts'      => $counts,
+		'front'       => get_option( 'show_on_front' ) . ':' . get_option( 'page_on_front' ),
+		'theme'       => get_stylesheet(),
+		'lang'        => get_option( 'WPLANG' ),
+		'permalinks'  => get_option( 'permalink_structure' ),
+		'woo'         => class_exists( 'WooCommerce' ) ? WC()->version : null,
+		'checkout_id' => get_option( 'woocommerce_checkout_page_id' ),
+		'gateways'    => class_exists( 'WooCommerce' ) && WC()->payment_gateways() ? array_keys( array_filter( WC()->payment_gateways()->payment_gateways(), function ( $g ) { return 'yes' === $g->enabled; } ) ) : array(),
+		'php'         => PHP_VERSION,
+		'wp'          => get_bloginfo( 'version' ),
+	);
+	@file_put_contents( trailingslashit( $up['basedir'] ) . 'kbm-status.txt', wp_json_encode( $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ) );
+}
+add_action( 'wp_loaded', function () {
+	$up = wp_upload_dir( null, false );
+	$f  = trailingslashit( $up['basedir'] ) . 'kbm-status.txt';
+	if ( ! file_exists( $f ) || filemtime( $f ) < time() - 60 ) {
+		kbm_write_status();
+	}
+} );
+add_action( 'kbm_after_step', 'kbm_write_status' );
