@@ -6,7 +6,7 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-define( 'KBM_SELFTEST_REV', 4 );
+define( 'KBM_SELFTEST_REV', 5 );
 
 function kbm_st_get( $url, $args = array() ) {
 	$args = wp_parse_args( $args, array( 'timeout' => 20, 'redirection' => 0, 'sslverify' => false, 'user-agent' => 'KBM-Selftest' ) );
@@ -181,6 +181,58 @@ function kbm_selftest_run() {
 		$out .= str_replace( untrailingslashit( $home ), '', $u ) . '  ' . $s . "\n";
 	}
 	file_put_contents( trailingslashit( wp_upload_dir()['basedir'] ) . 'kbm-selftest.txt', $out );
+	kbm_selftest_snapshot( $bodies, $assets );
+}
+
+/* Snapshot for visual review: page HTML, list of assets, small copies of uploaded images (base64, one per line). */
+function kbm_selftest_snapshot( $bodies, $assets ) {
+	$dir = trailingslashit( wp_upload_dir()['basedir'] ) . 'kbm-snap/';
+	wp_mkdir_p( $dir );
+	$home = untrailingslashit( home_url() );
+	$keep = array( '/', '/karnety/', '/treningi-personalne/', '/trenerzy/', '/grafik-zajec/', '/bufet/', '/o-nas/', '/kontakt/', '/galeria/', '/faq/', '/trening-probny/', '/sklep/', '/koszyk/', '/regulamin-studia/', '/produkt/silownia/', '/produkt/trening-personalny/', '/produkt/woda-naleczowianka-niegazowana-0-5-l/', '/moje-konto/' );
+	$idx  = array();
+	foreach ( $keep as $i => $path ) {
+		$b = $bodies[ $home . $path ] ?? null;
+		if ( null === $b ) {
+			continue;
+		}
+		$f = 'p' . $i . '.html';
+		file_put_contents( $dir . $f, $b );
+		$idx[] = $f . ' ' . $path;
+	}
+	file_put_contents( $dir . 'index.txt', implode( "\n", $idx ) );
+	file_put_contents( $dir . 'assets.txt', implode( "\n", array_keys( $assets ) ) );
+	$up   = wp_upload_dir();
+	$out  = '';
+	$done = array();
+	foreach ( array_keys( $assets ) as $a ) {
+		$a = preg_replace( '/\?.*$/', '', $a );
+		if ( 0 !== strpos( $a, $up['baseurl'] ) || isset( $done[ $a ] ) || ! preg_match( '/\.(jpe?g|png|webp|gif)$/i', $a ) ) {
+			continue;
+		}
+		$done[ $a ] = 1;
+		$file = $up['basedir'] . substr( $a, strlen( $up['baseurl'] ) );
+		if ( ! file_exists( $file ) ) {
+			continue;
+		}
+		$ed = wp_get_image_editor( $file );
+		if ( is_wp_error( $ed ) ) {
+			continue;
+		}
+		$sz = $ed->get_size();
+		if ( $sz['width'] > 700 ) {
+			$ed->resize( 700, null, false );
+		}
+		$ed->set_quality( 55 );
+		$tmp = wp_tempnam( 'kbm-snap' ) . '.jpg';
+		$r   = $ed->save( $tmp, 'image/jpeg' );
+		if ( is_wp_error( $r ) ) {
+			continue;
+		}
+		$out .= substr( $a, strlen( $up['baseurl'] ) ) . ' ' . base64_encode( (string) file_get_contents( $r['path'] ) ) . "\n";
+		@unlink( $r['path'] );
+	}
+	file_put_contents( $dir . 'img.txt', $out );
 }
 
 /* Cart test through the public Store API: water (deposit), karnet, trainer variation, totals. */
