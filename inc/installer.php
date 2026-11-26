@@ -735,7 +735,7 @@ add_action( 'init', function () {
 	if ( version_compare( $v, KBM_VERSION, '>=' ) || ! get_option( 'kbm_installed' ) ) {
 		return;
 	}
-	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : array( 'media', 'trainers', 'woo', 'pages', 'posts', 'finalize' );
+	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : ( version_compare( $v, '1.0.4', '<' ) ? array( 'media', 'trainers', 'woo', 'pages', 'posts', 'finalize' ) : array( 'finalize' ) );
 	$done  = array_values( array_diff( (array) get_option( 'kbm_auto_done', array() ), $rerun ) );
 	update_option( 'kbm_auto_done', $done, false );
 	update_option( 'kbm_auto_install', 1, false );
@@ -757,3 +757,16 @@ function kbm_dedupe_media() {
 		}
 	}
 }
+
+/* One-off: keep a copy of the old trainers page markup (photo ↔ name layout) for the build team. */
+add_action( 'shutdown', function () {
+	if ( get_option( 'kbm_tr_snapshot' ) || wp_doing_ajax() || is_admin() ) {
+		return;
+	}
+	update_option( 'kbm_tr_snapshot', 1, false );
+	$r = wp_remote_get( 'https://kbmotion.pl/trenerzy', array( 'timeout' => 20 ) );
+	if ( ! is_wp_error( $r ) ) {
+		$up = wp_upload_dir();
+		file_put_contents( trailingslashit( $up['basedir'] ) . 'kbm-trenerzy.html', (string) wp_remote_retrieve_body( $r ) );
+	}
+}, 99 );
