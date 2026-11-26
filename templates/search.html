@@ -1,0 +1,46 @@
+<!-- wp:template-part {"slug":"header","tagName":"div","className":"kbm-header-wrap"} /-->
+
+<!-- wp:group {"tagName":"main","className":"kbm-main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group kbm-main"><!-- wp:group {"className":"kbm-page-hero","layout":{"type":"constrained"}} -->
+<div class="wp-block-group kbm-page-hero"><!-- wp:paragraph {"className":"kbm-eyebrow"} -->
+<p class="kbm-eyebrow">Blog KB Motion</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:query-title {"type":"search"} /-->
+
+<!-- wp:paragraph -->
+<p>Wyniki wyszukiwania.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"wide","className":"kbm-section","layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide kbm-section"><!-- wp:query {"queryId":1,"query":{"perPage":9,"pages":0,"offset":0,"postType":"any","order":"desc","orderBy":"date","inherit":true},"align":"wide","layout":{"type":"default"}} -->
+<div class="wp-block-query alignwide"><!-- wp:post-template {"className":"kbm-posts","layout":{"type":"grid","columnCount":3}} -->
+<!-- wp:group {"className":"kbm-post-card","layout":{"type":"default"}} -->
+<div class="wp-block-group kbm-post-card"><!-- wp:post-featured-image {"isLink":true,"aspectRatio":"3/2"} /-->
+
+<!-- wp:post-terms {"term":"category","className":"kbm-eyebrow"} /-->
+
+<!-- wp:post-title {"level":2,"isLink":true,"fontSize":"large"} /-->
+
+<!-- wp:post-excerpt {"moreText":"Czytaj dalej","excerptLength":22} /--></div>
+<!-- /wp:group -->
+<!-- /wp:post-template -->
+
+<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
+<!-- wp:query-pagination-previous {"label":"Nowsze"} /-->
+<!-- wp:query-pagination-numbers /-->
+<!-- wp:query-pagination-next {"label":"Starsze"} /-->
+<!-- /wp:query-pagination -->
+
+<!-- wp:query-no-results -->
+<!-- wp:paragraph -->
+<p>Nie znaleźliśmy wpisów. Zajrzyj na <a href="/blog/">blog</a> albo napisz do nas.</p>
+<!-- /wp:paragraph -->
+<!-- /wp:query-no-results --></div>
+<!-- /wp:query --></div>
+<!-- /wp:group --></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"div"} /-->
+
