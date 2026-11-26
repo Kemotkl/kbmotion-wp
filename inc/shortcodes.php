@@ -16,9 +16,9 @@ function kbm_faq_data() {
 		),
 		'treningi' => array(
 			array( 'Jak zacząć współpracę z trenerem?', 'Najlepiej od treningu wdrożeniowego z konsultacją (ok. 60 minut, 99 zł). Poznamy Twoje cele, sprawdzimy technikę i ułożymy plan. Możesz też zapisać się na bezpłatną konsultację.' ),
-			array( 'Ile kosztuje trening personalny?', 'Pojedynczy trening z trenerem klubowym kosztuje 160 zł. Pakiet 10 treningów to 1500 zł, czyli 150 zł za trening.' ),
-			array( 'Czy do treningów personalnych potrzebuję karnetu?', 'Tak, przy pakietach treningów potrzebny jest aktywny karnet na wejście do studia. Najkorzystniejszy jest karnet Siłownia z trenerem (219 zł/mies.) albo Siłownia 4 wejścia w miesiącu (149 zł).' ),
-			array( 'Czy mogę wybrać konkretnego trenera?', 'W pakiecie z trenerem klubowym trenera dobieramy my, a Ty wybierasz, czy wolisz kobietę czy mężczyznę. Jeśli chcesz trenować z konkretną osobą, wyślij formularz rezerwacji trenera, a oddzwonimy z terminem.' ),
+			array( 'Ile kosztuje trening personalny?', 'Pierwszy trening wdrożeniowy z konsultacją kosztuje 99 zł. Kolejne treningi zależą od trenera: 200 zł (Piotr, Tomasz, Patryk, Kasia) lub 150 zł (Gustave, Aleksander, Paweł). Pakiet 10 treningów z trenerem klubowym kosztuje 1499 zł.' ),
+			array( 'Czy do treningów personalnych potrzebuję karnetu?', 'Tak, do treningów i pakietów potrzebny jest aktywny karnet na wejście do studia. Najkorzystniejszy jest karnet Siłownia z trenerem (219 zł/mies.) albo Siłownia 4 wejścia w miesiącu (149 zł).' ),
+			array( 'Czy mogę wybrać konkretnego trenera?', 'Tak. Przy pojedynczym treningu wybierasz trenera przy zakupie albo w formularzu rezerwacji, gdzie przy każdym nazwisku widać cenę. W pakiecie 10 treningów trenera dobiera klub.' ),
 			array( 'Jak odwołać trening?', 'Trening można odwołać lub przełożyć najpóźniej 24 godziny przed jego rozpoczęciem. Później trening może zostać uznany za zrealizowany.' ),
 			array( 'Mam kontuzję. Czy mogę trenować?', 'W większości przypadków tak, a trening z trenerem jest wtedy najbezpieczniejszy. Przed pierwszym treningiem wypełnisz krótką ankietę zdrowotną PAR-Q, a trener dopasuje ćwiczenia do Twoich możliwości.' ),
 		),
@@ -162,8 +162,12 @@ add_shortcode( 'kbm_trainers', function ( $atts ) {
 			}
 			echo '</ul>';
 		}
+		$price = (int) get_post_meta( $id, '_kbm_price', true );
+		if ( $price ) {
+			echo '<p class="kbm-trainer__price">' . esc_html( $price ) . ' zł / trening</p>';
+		}
 		$ex = get_the_excerpt();
-		if ( $ex ) {
+		if ( $ex && $ex !== $role ) {
 			echo '<p class="kbm-trainer__bio">' . esc_html( $ex ) . '</p>';
 		}
 		echo '<a class="kbm-link-arrow" href="' . esc_url( add_query_arg( 'trener', rawurlencode( $name ), $book ) . '#rezerwacja' ) . '">Umów trening z ' . esc_html( $first ) . '</a>';

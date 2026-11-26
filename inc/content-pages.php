@@ -47,7 +47,7 @@ function kbm_pages_content() {
 		'Trenuj <em>po swojemu</em>.<br>W ciszy, z głową.',
 		'Kameralne studio treningu personalnego: 250 m² bez tłumów, profesjonalni trenerzy i wejście przez aplikację od 6:00 do 23:00.',
 		kbm_cta_html( 'Kup karnet', 'Umów trening' ),
-		'<span>Bez tłumów i kolejek</span><span>Treningi personalne od 99 zł</span><span>Otwarte codziennie 6–23</span>'
+		'<span>Bez tłumów i kolejek</span><span>Treningi personalne od 150 zł</span><span>Otwarte codziennie 6–23</span>'
 	);
 	$home .= kbm_html( '<div class="kbm-strip alignfull" aria-hidden="true"><div class="kbm-strip__track"><span>Trening personalny</span><span>Redukcja tkanki tłuszczowej</span><span>Przygotowanie motoryczne</span><span>Siła i sylwetka</span><span>Zdrowy kręgosłup</span><span>Zajęcia grupowe</span><span>Trening personalny</span><span>Redukcja tkanki tłuszczowej</span><span>Przygotowanie motoryczne</span><span>Siła i sylwetka</span><span>Zdrowy kręgosłup</span><span>Zajęcia grupowe</span></div></div>' );
 	$home .= kbm_section(
@@ -72,7 +72,7 @@ function kbm_pages_content() {
 		'is-sand'
 	);
 	$home .= kbm_section(
-		kbm_html( '<div class="kbm-split is-reverse"><div class="kbm-reveal"><p class="kbm-eyebrow">Treningi personalne</p><h2>Efekty bez zgadywania</h2><p class="kbm-lead">Redukcja tkanki tłuszczowej, siła, mobilność albo powrót do formy. Zaczynamy od konsultacji i treningu wdrożeniowego, a potem trener prowadzi Cię krok po kroku.</p><ul class="kbm-checklist"><li>Analiza celu, techniki i możliwości</li><li>Plan treningowy dopasowany do Twojego tygodnia</li><li>Bezpieczeństwo także przy kontuzjach</li><li>Pakiet 10 treningów: 150 zł za trening</li></ul><div class="kbm-btn-row"><a class="kbm-btn kbm-btn--gold" href="/treningi-personalne/">Zacznij od 99 zł</a><a class="kbm-btn kbm-btn--ghost" href="/trening-probny/">Bezpłatna konsultacja</a></div></div><div class="kbm-reveal"><img src="{{img:studio3}}" alt="Trening personalny w KB Motion Wrocław" loading="lazy" width="900" height="1125"></div></div>' )
+		kbm_html( '<div class="kbm-split is-reverse"><div class="kbm-reveal"><p class="kbm-eyebrow">Treningi personalne</p><h2>Efekty bez zgadywania</h2><p class="kbm-lead">Redukcja tkanki tłuszczowej, siła, mobilność albo powrót do formy. Zaczynamy od konsultacji i treningu wdrożeniowego, a potem trener prowadzi Cię krok po kroku.</p><ul class="kbm-checklist"><li>Analiza celu, techniki i możliwości</li><li>Plan treningowy dopasowany do Twojego tygodnia</li><li>Bezpieczeństwo także przy kontuzjach</li><li>Pakiet 10 treningów z trenerem klubowym: 1499 zł</li></ul><div class="kbm-btn-row"><a class="kbm-btn kbm-btn--gold" href="/treningi-personalne/">Zacznij od 99 zł</a><a class="kbm-btn kbm-btn--ghost" href="/trening-probny/">Bezpłatna konsultacja</a></div></div><div class="kbm-reveal"><img src="{{img:studio3}}" alt="Trening personalny w KB Motion Wrocław" loading="lazy" width="900" height="1125"></div></div>' )
 	);
 	$home .= kbm_section(
 		kbm_head( 'Jak zacząć', 'Trzy kroki do pierwszego treningu', '', true )
@@ -107,7 +107,7 @@ function kbm_pages_content() {
 		'is-sand'
 	);
 	$k .= kbm_section(
-		kbm_html( '<div class="kbm-inline-cta" style="margin:0"><p class="kbm-eyebrow">Trenujesz z trenerem?</p><h2>Treningi personalne od 99 zł</h2><p>Zacznij od treningu wdrożeniowego z konsultacją albo wybierz pakiet 10 treningów (150 zł za trening). Do pakietu potrzebny jest karnet, najlepiej Siłownia z trenerem.</p><div class="kbm-btn-row"><a class="kbm-btn kbm-btn--gold" href="/treningi-personalne/">Zobacz treningi personalne</a><a class="kbm-btn kbm-btn--ghost" href="/trening-probny/">Bezpłatna konsultacja</a></div></div>' )
+		kbm_html( '<div class="kbm-inline-cta" style="margin:0"><p class="kbm-eyebrow">Trenujesz z trenerem?</p><h2>Treningi personalne od 150 zł</h2><p>Zacznij od pierwszego treningu wdrożeniowego z konsultacją za 99 zł. Cena kolejnych treningów zależy od trenera (150 lub 200 zł), a pakiet 10 treningów z trenerem klubowym kosztuje 1499 zł. Do treningów potrzebny jest karnet, najlepiej Siłownia z trenerem.</p><div class="kbm-btn-row"><a class="kbm-btn kbm-btn--gold" href="/treningi-personalne/">Zobacz treningi personalne</a><a class="kbm-btn kbm-btn--ghost" href="/trening-probny/">Bezpłatna konsultacja</a></div></div>' )
 	);
 	$k .= kbm_section(
 		kbm_head( 'Pytania o karnety', 'Wszystko, co warto wiedzieć' ) . kbm_sc( '[kbm_faq set="karnety"]' )
@@ -125,15 +125,15 @@ function kbm_pages_content() {
 		'Treningi personalne Wrocław',
 		'Trener, który<br><em>prowadzi Cię do celu</em>',
 		'Redukcja tkanki tłuszczowej, budowa siły, przygotowanie motoryczne i zdrowy kręgosłup. Indywidualny plan, pełna uwaga trenera i kameralne warunki.',
-		'<div class="kbm-btn-row"><a class="kbm-btn kbm-btn--gold" href="#pakiety">Wybierz pakiet</a><a class="kbm-btn kbm-btn--ghost" href="#rezerwacja">Zarezerwuj trenera</a></div>',
-		'<span>Trening wdrożeniowy 99 zł</span><span>Pakiet 10 treningów: 150 zł/trening</span><span>Kobieta lub mężczyzna do wyboru</span>'
+		'<div class="kbm-btn-row"><a class="kbm-btn kbm-btn--gold" href="#pakiety">Zobacz ceny</a><a class="kbm-btn kbm-btn--ghost" href="#rezerwacja">Zarezerwuj trenera</a></div>',
+		'<span>Pierwszy trening + konsultacja 99 zł</span><span>Treningi od 150 zł</span><span>Pakiet 10 treningów 1499 zł</span>'
 	);
 	$t .= kbm_section(
 		kbm_head( 'Dla kogo', 'Z czym przychodzą do nas klienci' )
 		. kbm_html( '<div class="kbm-features"><div class="kbm-feature kbm-reveal"><h3>Redukcja tkanki tłuszczowej</h3><p>Trening i nawyki, które da się utrzymać. Bez głodówek i cudownych diet.</p></div><div class="kbm-feature kbm-reveal"><h3>Siła i sylwetka</h3><p>Progresja oparta na technice. Wiesz, co robisz i dlaczego.</p></div><div class="kbm-feature kbm-reveal"><h3>Przygotowanie motoryczne</h3><p>Szybkość, moc i sprawność dla sportowców amatorów i zawodników.</p></div><div class="kbm-feature kbm-reveal"><h3>Zdrowy kręgosłup</h3><p>Mobilność, stabilizacja i bezpieczny powrót do ruchu po przerwie lub kontuzji.</p></div></div>' )
 	);
 	$t .= kbm_section(
-		kbm_html( '<div id="pakiety"></div>' ) . kbm_head( 'Pakiety', 'Wybierz, jak chcesz zacząć', 'Płacisz online, a termin ustalamy telefonicznie w ciągu jednego dnia roboczego.', true )
+		kbm_html( '<div id="pakiety"></div>' ) . kbm_head( 'Cennik', 'Wybierz, jak chcesz zacząć', 'Cena treningu zależy od trenera. Płacisz online, a termin ustalamy telefonicznie w ciągu jednego dnia roboczego.', true )
 		. kbm_sc( '[kbm_pricing cat="treningi-personalne"]' ),
 		'is-sand'
 	);
@@ -143,14 +143,14 @@ function kbm_pages_content() {
 		'is-dark'
 	);
 	$t .= kbm_section(
-		kbm_html( '<div class="kbm-split"><div><div id="rezerwacja"></div><p class="kbm-eyebrow">Rezerwacja trenera</p><h2>Zarezerwuj trening</h2><p class="kbm-lead">Wybierz trenera i porę, a my oddzwonimy z konkretnym terminem. Zwykle odpowiadamy w ciągu kilku godzin.</p><p>Wolisz od razu zapłacić? <a href="#pakiety">Kup pakiet online</a>.</p></div><div>' ) . kbm_sc( '[kbm_form type="trainer"]' ) . kbm_html( '</div></div>' )
+		kbm_html( '<div class="kbm-split"><div><div id="rezerwacja"></div><p class="kbm-eyebrow">Rezerwacja trenera</p><h2>Zarezerwuj trening</h2><p class="kbm-lead">Wybierz trenera i porę, a my oddzwonimy z konkretnym terminem. Zwykle odpowiadamy w ciągu kilku godzin.</p><p>Wolisz od razu zapłacić? <a href="#pakiety">Kup trening online</a>.</p></div><div>' ) . kbm_sc( '[kbm_form type="trainer"]' ) . kbm_html( '</div></div>' )
 	);
 	$t .= kbm_section(
 		kbm_head( 'Zespół', 'Nasi trenerzy' ) . kbm_sc( '[kbm_trainers owners="0"]' ),
 		'is-sand'
 	);
 	$t .= kbm_section( kbm_head( 'FAQ', 'Pytania o treningi personalne' ) . kbm_sc( '[kbm_faq set="treningi"]' ) );
-	$p['treningi-personalne'] = array( 'Treningi personalne', $t, 'page-landing', 'Trening personalny we Wrocławiu od 99 zł. Redukcja, siła, przygotowanie motoryczne, zdrowy kręgosłup. Pakiet 10 treningów 1500 zł. Zarezerwuj trenera online.', 'Trener personalny Wrocław – treningi od 99 zł | KB Motion' );
+	$p['treningi-personalne'] = array( 'Treningi personalne', $t, 'page-landing', 'Trening personalny we Wrocławiu od 150 zł, pierwszy trening wdrożeniowy z konsultacją 99 zł. Redukcja, siła, przygotowanie motoryczne, zdrowy kręgosłup. Pakiet 10 treningów 1499 zł. Wybierz trenera online.', 'Trener personalny Wrocław – treningi od 150 zł | KB Motion' );
 
 	/* ---------------- TRENERZY ---------------- */
 	$tr  = kbm_section(

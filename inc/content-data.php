@@ -37,15 +37,16 @@ function kbm_media_sources() {
 }
 
 function kbm_trainers_data() {
-	// name, role, tags, owner, order
+	// name, role, tags, owner, order, price per training (PLN, 0 = no personal training)
 	return array(
-		array( 'Piotr Brzóstowicz', 'Właściciel · trener personalny', '', 1, 1 ),
-		array( 'Tomasz Kluzek', 'Właściciel · trener personalny', 'redukcja, siła, dietetyka', 1, 2 ),
-		array( 'Patryk Górecki', 'Treningi personalne', '', 0, 3 ),
-		array( 'Gustave Cordonnier', 'Treningi personalne', '', 0, 4 ),
-		array( 'Kasia Górecka', 'Treningi personalne', '', 0, 5 ),
-		array( 'Aleksander Przychodzeń', 'Treningi personalne', '', 0, 6 ),
-		array( 'Agata Kublicka', 'Zajęcia grupowe', '', 0, 7 ),
+		array( 'Piotr Brzóstowicz', 'Właściciel · trener personalny', '', 1, 1, 200 ),
+		array( 'Tomasz Kluzek', 'Właściciel · trener personalny', 'redukcja, siła, dietetyka', 1, 2, 200 ),
+		array( 'Patryk Górecki', 'Treningi personalne', '', 0, 3, 200 ),
+		array( 'Kasia Górecka', 'Treningi personalne', '', 0, 4, 200 ),
+		array( 'Gustave Cordonnier', 'Treningi personalne', '', 0, 5, 150 ),
+		array( 'Aleksander Przychodzeń', 'Treningi personalne', '', 0, 6, 150 ),
+		array( 'Paweł', 'Treningi personalne', '', 0, 7, 150 ),
+		array( 'Agata Kublicka', 'Zajęcia grupowe', '', 0, 8, 0 ),
 	);
 }
 
@@ -58,11 +59,11 @@ function kbm_products_data() {
 	};
 	return array(
 		/* ----- Karnety ----- */
-		array( 'slug' => 'silownia', 'name' => 'Siłownia', 'cat' => 'karnety', 'type' => 'variable', 'order' => 1, 'featured' => 1, 'sold_ind' => 1, 'attr' => 'Okres',
+		array( 'slug' => 'silownia', 'name' => 'Siłownia', 'cat' => 'karnety', 'type' => 'variable', 'order' => 1, 'sold_ind' => 1, 'attr' => 'Okres',
 			'vars' => array( array( 'Bez zobowiązań', 399, '/ mies.' ), array( 'Umowa 6 miesięcy', 379, '/ mies.' ), array( 'Umowa 12 miesięcy', 369, '/ mies.' ) ),
 			'short' => $ul( array( 'Siłownia i sala fitness codziennie 6:00–23:00', 'Wejście na kod QR z aplikacji', 'Bez zajęć grupowych' ) ),
 			'desc' => '<p>Karnet uprawniający do korzystania z siłowni wraz z salą fitness, bez zajęć grupowych. Wariant bez zobowiązań możesz zakończyć w dowolnym momencie. Warianty z umową na 6 lub 12 miesięcy mają niższą cenę miesięczną: online płacisz za pierwszy miesiąc, a kolejne opłaty rozliczamy co miesiąc zgodnie z umową.</p>' ),
-		array( 'slug' => 'silownia-z-trenerem', 'name' => 'Siłownia z trenerem', 'cat' => 'karnety', 'type' => 'variable', 'order' => 2, 'sold_ind' => 1, 'attr' => 'Okres',
+		array( 'slug' => 'silownia-z-trenerem', 'name' => 'Siłownia z trenerem', 'cat' => 'karnety', 'type' => 'variable', 'order' => 2, 'featured' => 1, 'sold_ind' => 1, 'attr' => 'Okres',
 			'vars' => array( array( '1 miesiąc', 219, '' ), array( 'Umowa 6 miesięcy', 219, '/ mies.' ) ),
 			'short' => $ul( array( 'Dla osób trenujących z trenerem personalnym', 'Dostęp do siłowni i sali fitness', 'Trener rozliczany osobno' ) ),
 			'desc' => '<p>Karnet umożliwiający korzystanie z siłowni osobom, które trenują z trenerem personalnym KB Motion. Treningi z trenerem kupujesz osobno jako pojedyncze treningi lub pakiet.</p>' ),
@@ -85,12 +86,13 @@ function kbm_products_data() {
 		array( 'slug' => 'trening-wdrozeniowy-konsultacja', 'name' => 'Trening wdrożeniowy + konsultacja', 'cat' => 'treningi-personalne', 'type' => 'simple', 'price' => 99, 'unit' => '', 'order' => 1, 'featured' => 1, 'cta' => 'Zacznij od tego',
 			'short' => $ul( array( 'Ok. 60 minut z wybranym trenerem', 'Konsultacja celu i zdrowia', 'Ocena techniki i plan na start' ) ),
 			'desc' => '<p>Najlepszy sposób, aby zacząć. Trening wdrożeniowy wraz z konsultacją z dowolnie wybranym trenerem (około 60 minut). Poznamy Twój cel, sprawdzimy technikę i zaproponujemy plan.</p>' ),
-		array( 'slug' => 'trening-personalny', 'name' => 'Trening personalny', 'cat' => 'treningi-personalne', 'type' => 'simple', 'price' => 160, 'unit' => '', 'order' => 2,
-			'short' => $ul( array( 'Pojedynczy trening z trenerem klubowym', 'Trener przydzielany przez klub', 'Bez zobowiązań' ) ),
-			'desc' => '<p>Jeden trening personalny z trenerem klubowym. Trenera przydziela klub. Jeśli chcesz trenować z konkretną osobą, napisz do nas przez formularz rezerwacji.</p>' ),
-		array( 'slug' => 'pakiet-10-treningow-personalnych', 'name' => 'Pakiet 10 treningów personalnych', 'cat' => 'treningi-personalne', 'type' => 'simple', 'price' => 1500, 'unit' => '', 'order' => 3,
-			'short' => $ul( array( '150 zł za trening', 'Trener klubowy, do wyboru kobieta lub mężczyzna', 'Wymagany aktywny karnet' ) ),
-			'desc' => '<p>Pakiet 10 treningów personalnych z trenerem klubowym. Trenera przydziela klub; możesz wybrać, czy wolisz kobietę czy mężczyznę. Jeśli chcesz skontaktować się z konkretnym trenerem, napisz przez formularz kontaktowy. Przy pakiecie wymagany jest aktywny karnet (np. Siłownia z trenerem).</p>' ),
+		array( 'slug' => 'trening-personalny', 'name' => 'Trening personalny', 'cat' => 'treningi-personalne', 'type' => 'variable', 'order' => 2, 'attr' => 'Trener',
+			'vars' => 'TRAINERS',
+			'short' => $ul( array( 'Ty wybierasz trenera', 'Cena zależy od trenera: 150 lub 200 zł', 'Bez zobowiązań' ) ),
+			'desc' => '<p>Trening personalny z wybranym trenerem KB Motion. Cena zależy od trenera: 200 zł (Piotr, Tomasz, Patryk, Kasia) lub 150 zł (Gustave, Aleksander, Paweł). Termin potwierdzamy telefonicznie w ciągu jednego dnia roboczego.</p>' ),
+		array( 'slug' => 'pakiet-10-treningow-personalnych', 'name' => 'Pakiet 10 treningów personalnych', 'cat' => 'treningi-personalne', 'type' => 'simple', 'price' => 1499, 'unit' => '', 'order' => 3,
+			'short' => $ul( array( '10 treningów z trenerem klubowym', 'Trenera dobiera klub', 'Wymagany aktywny karnet' ) ),
+			'desc' => '<p>Pakiet 10 treningów personalnych z trenerem klubowym. Trenera dobiera klub, dopasowując go do Twojego celu i dostępnych terminów. Jeśli chcesz trenować z konkretną osobą, wybierz pojedynczy trening personalny z wybranym trenerem. Przy pakiecie wymagany jest aktywny karnet (np. Siłownia z trenerem).</p>' ),
 
 		/* ----- Bufet ----- */
 		array( 'slug' => 'woda-naleczowianka-niegazowana-0-5-l', 'name' => 'Woda Nałęczowianka niegazowana 0,5 l', 'cat' => 'napoje', 'type' => 'simple', 'price' => 4, 'img' => 'p_woda05', 'stock' => 10, 'deposit' => 1, 'order' => 1,
@@ -136,7 +138,7 @@ function kbm_posts_data() {
 <h2>4. Co z dietą?</h2><p>Trening to połowa sukcesu, szczególnie przy redukcji tkanki tłuszczowej. Zapytaj, czy trener pomoże w podstawach żywienia: ile jeść, jak komponować posiłki, jak nie wpadać w efekt jo-jo. Uważaj na obietnice „cudownych diet”.</p>
 <h2>5. Jak pracujesz z kontuzjami?</h2><p>Ból pleców, kolana czy barku nie wyklucza treningu, ale wymaga doświadczenia. Trener powinien znać zasady bezpiecznej progresji i wiedzieć, kiedy odesłać do fizjoterapeuty.</p>
 <h2>6. Gdzie i w jakich warunkach trenujemy?</h2><p>Zatłoczona siłownia to kolejki do sprzętu i rozproszenie. Kameralne studio pozwala trenować bez czekania i w spokoju, co przekłada się na jakość każdej minuty treningu.</p>
-<h2>7. Ile to kosztuje i co dostaję w cenie?</h2><p>Porównuj nie tylko cenę za godzinę, ale też to, co zawiera: plan, kontakt między treningami, pomiary. W KB Motion pojedynczy trening kosztuje 160 zł, a w pakiecie 10 treningów 150 zł za trening.</p>
+<h2>7. Ile to kosztuje i co dostaję w cenie?</h2><p>Porównuj nie tylko cenę za godzinę, ale też to, co zawiera: plan, kontakt między treningami, pomiary. W KB Motion pierwszy trening wdrożeniowy z konsultacją kosztuje 99 zł, kolejne treningi od 150 zł, a pakiet 10 treningów z trenerem klubowym 1499 zł.</p>
 <h2>Podsumowanie</h2><p>Wybieraj trenera, który zadaje pytania, słucha i tłumaczy, co i dlaczego robicie. Najprościej sprawdzić to na konsultacji. <a href="/trening-probny/">Umów bezpłatną konsultację</a> albo zacznij od <a href="/treningi-personalne/">treningu wdrożeniowego za 99 zł</a>.</p>',
 		),
 		array(

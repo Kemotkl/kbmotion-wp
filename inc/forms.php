@@ -15,6 +15,11 @@ function kbm_form_types() {
 	);
 }
 
+function kbm_trainer_price( $name ) {
+	$t = get_page_by_title( $name, OBJECT, 'kbm_trainer' );
+	return $t ? (int) get_post_meta( $t->ID, '_kbm_price', true ) : 0;
+}
+
 function kbm_trainer_names() {
 	return wp_list_pluck( get_posts( array( 'post_type' => 'kbm_trainer', 'numberposts' => 50, 'orderby' => 'menu_order', 'order' => 'ASC' ) ), 'post_title' );
 }
@@ -55,12 +60,13 @@ add_shortcode( 'kbm_form', function ( $atts ) {
 			if ( 'contact' === $type || 'trainer' === $type ) {
 				$opts = '<option value="">' . ( 'trainer' === $type ? 'Dobierzcie trenera za mnie' : 'Dowolny / nie wiem' ) . '</option>';
 				foreach ( kbm_trainer_names() as $n ) {
-					$opts .= '<option' . selected( $pre_t, $n, false ) . '>' . esc_html( $n ) . '</option>';
+					$pr    = 'trainer' === $type ? kbm_trainer_price( $n ) : 0;
+					$opts .= '<option value="' . esc_attr( $n ) . '"' . selected( $pre_t, $n, false ) . '>' . esc_html( $n . ( $pr ? ' – ' . $pr . ' zł / trening' : '' ) ) . '</option>';
 				}
 				echo $f( 'trainer', 'contact' === $type ? 'Z którym trenerem chcesz się skontaktować?' : 'Preferowany trener', '<select id="' . $id( 'trainer' ) . '" name="trainer">' . $opts . '</select>' );
 			}
 			if ( 'trainer' === $type ) {
-				echo $f( 'package', 'Co Cię interesuje?', '<select id="' . $id( 'package' ) . '" name="package"><option>Trening wdrożeniowy + konsultacja (99 zł)</option><option>Pojedynczy trening personalny (160 zł)</option><option>Pakiet 10 treningów (1500 zł)</option><option>Jeszcze nie wiem, doradźcie</option></select>' );
+				echo $f( 'package', 'Co Cię interesuje?', '<select id="' . $id( 'package' ) . '" name="package"><option>Pierwszy trening wdrożeniowy + konsultacja (99 zł)</option><option>Trening personalny (cena zależna od trenera)</option><option>Pakiet 10 treningów z trenerem klubowym (1499 zł)</option><option>Jeszcze nie wiem, doradźcie</option></select>' );
 				echo $f( 'when', 'Kiedy możesz trenować?', '<select id="' . $id( 'when' ) . '" name="when"><option>Rano (6–10)</option><option>W ciągu dnia (10–16)</option><option>Po pracy (16–20)</option><option>Wieczorem (20–23)</option><option>Elastycznie</option></select>' );
 			}
 			if ( 'trial' === $type ) {

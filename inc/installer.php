@@ -237,7 +237,21 @@ function kbm_install_woo() {
 	}
 
 	$n = 0;
+	foreach ( array() as $old ) { // retired products
+		$oid = kbm_find_post( $old, 'product' );
+		if ( $oid && 'draft' !== get_post_status( $oid ) ) {
+			wp_update_post( array( 'ID' => $oid, 'post_status' => 'draft' ) );
+		}
+	}
 	foreach ( kbm_products_data() as $d ) {
+		if ( isset( $d['vars'] ) && 'TRAINERS' === $d['vars'] ) {
+			$d['vars'] = array();
+			foreach ( kbm_trainers_data() as $tr ) {
+				if ( ! empty( $tr[5] ) ) {
+					$d['vars'][] = array( $tr[0], $tr[5], '/ trening' );
+				}
+			}
+		}
 		kbm_install_product( $d, $ids, $map );
 		$n++;
 	}
@@ -348,6 +362,7 @@ function kbm_install_trainers() {
 	$log = array();
 	foreach ( kbm_trainers_data() as $t ) {
 		list( $name, $role, $tags, $owner, $order ) = $t;
+		$price = (int) ( $t[5] ?? 0 );
 		$slug  = sanitize_title( $name );
 		$id    = kbm_find_post( $slug, 'kbm_trainer' );
 		$first = strtok( $name, ' ' );
@@ -367,6 +382,7 @@ function kbm_install_trainers() {
 		$id = wp_insert_post( $args );
 		update_post_meta( $id, '_kbm_role', $role );
 		update_post_meta( $id, '_kbm_tags', $tags );
+		update_post_meta( $id, '_kbm_price', $price ?: '' );
 		if ( $owner ) {
 			update_post_meta( $id, '_kbm_is_owner', '1' );
 		} else {
@@ -676,7 +692,7 @@ add_action( 'init', function () {
 	if ( version_compare( $v, KBM_VERSION, '>=' ) || ! get_option( 'kbm_installed' ) ) {
 		return;
 	}
-	$rerun = array( 'woo', 'pages', 'finalize' );
+	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : array( 'trainers', 'woo', 'pages', 'posts' );
 	$done  = array_values( array_diff( (array) get_option( 'kbm_auto_done', array() ), $rerun ) );
 	update_option( 'kbm_auto_done', $done, false );
 	update_option( 'kbm_auto_install', 1, false );

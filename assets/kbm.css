@@ -170,3 +170,4 @@
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .kbm-consent[hidden],.kbm-consent__prefs[hidden],.kbm-chat [hidden],[hidden]{display:none!important}
 @media (max-width:600px){.kbm-consent__btns{display:grid!important;grid-template-columns:1fr 1fr;gap:8px}.kbm-consent__btns [data-consent-action="accept"]{grid-column:1/-1;order:-1}}
+.kbm-trainer__price{font-weight:700;color:var(--kbm-gold,#c8a15a);margin:.2em 0 .6em}
