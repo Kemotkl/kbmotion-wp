@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
 function kbm_faq_data() {
 	return array(
 		'karnety'  => array(
-			array( 'Jaki karnet wybrać na start?', 'Jeśli chcesz trenować samodzielnie, wybierz karnet Siłownia: 399 zł miesięcznie bez zobowiązań albo taniej w umowie na 6 miesięcy (379 zł/mies.) lub 12 miesięcy (369 zł/mies.). Jeśli trenujesz z trenerem personalnym, wystarczy karnet Siłownia z trenerem za 219 zł miesięcznie.' ),
+			array( 'Jaki karnet wybrać na start?', 'Jeśli chcesz trenować samodzielnie, wybierz karnet Siłownia: 399 zł miesięcznie bez zobowiązań albo taniej w umowie na 6 miesięcy (379 zł/mies.) lub 12 miesięcy (369 zł/mies.). Jeśli trenujesz z trenerem personalnym, wystarczy karnet Siłownia z trenerem za 219 zł miesięcznie, na czas nieokreślony i bez okresu wypowiedzenia.' ),
 			array( 'Jak wygląda wejście do studia po zakupie?', 'Po opłaceniu zamówienia aktywujemy Twój karnet w systemie klubowym (zwykle tego samego dnia) i wysyłamy zaproszenie do aplikacji KB Motion. Do studia wchodzisz na kod QR z aplikacji, w godzinach 06:00–23:00.' ),
 			array( 'Czy mogę przyjść tylko raz?', 'Tak. Wejście jednorazowe na siłownię kosztuje 49 zł, a na zajęcia grupowe 45 zł. Kupisz je online w kilka sekund.' ),
 			array( 'Czy karnet można przekazać innej osobie?', 'Nie. Karnety są imienne i przypisane do Twojego konta w aplikacji.' ),

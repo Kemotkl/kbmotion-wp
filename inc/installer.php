@@ -306,6 +306,11 @@ function kbm_install_product( array $d, array $cat_ids, array $map ) {
 		$p->set_stock_status( 'instock' );
 	}
 	if ( ! $variable ) {
+		foreach ( ( $id ? (array) get_children( array( 'post_parent' => $id, 'post_type' => 'product_variation', 'fields' => 'ids' ) ) : array() ) as $vid ) {
+			wp_delete_post( (int) $vid, true ); // leftovers after a variable → simple change.
+		}
+		$p->set_attributes( array() );
+		$p->set_default_attributes( array() );
 		$p->set_regular_price( (string) $d['price'] );
 		$p->set_sale_price( '' );
 	} else {
@@ -692,7 +697,7 @@ add_action( 'init', function () {
 	if ( version_compare( $v, KBM_VERSION, '>=' ) || ! get_option( 'kbm_installed' ) ) {
 		return;
 	}
-	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : array( 'trainers', 'woo', 'pages', 'posts' );
+	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : array( 'woo' );
 	$done  = array_values( array_diff( (array) get_option( 'kbm_auto_done', array() ), $rerun ) );
 	update_option( 'kbm_auto_done', $done, false );
 	update_option( 'kbm_auto_install', 1, false );
