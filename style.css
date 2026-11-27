@@ -3,7 +3,7 @@ Theme Name: KB Motion
 Theme URI: https://kbmotion.pl
 Author: KB Motion
 Description: Motyw blokowy dla studia treningu personalnego KB Motion we Wrocławiu. Czerń i złoto, mobile first, gotowy pod WooCommerce.
-Version: 1.0.6
+Version: 1.0.7
 Requires at least: 6.5
 Requires PHP: 8.0
 License: GPL-2.0-or-later
@@ -316,3 +316,10 @@ input[type=checkbox],input[type=radio]{width:22px;height:22px;accent-color:var(-
 .wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open [aria-current="page"].wp-block-navigation-item__content{color:var(--kbm-gold)}
 .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-container-close{color:#fff}
 html.has-modal-open .kbm-chat-fab,html.has-modal-open .kbm-mbar,html.has-modal-open .kbm-consent{visibility:hidden}
+
+/* Shop toolbar on narrow phones (1.0.7) */
+@media (max-width:600px){
+.wp-block-group:has(> .wc-block-catalog-sorting){flex-wrap:wrap!important;row-gap:10px}
+.wc-block-catalog-sorting{max-width:100%;min-width:0}
+.wc-block-catalog-sorting select.orderby{max-width:100%;min-height:44px}
+}
