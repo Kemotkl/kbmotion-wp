@@ -715,6 +715,8 @@ function kbm_write_status() {
 		'checkout_id' => get_option( 'woocommerce_checkout_page_id' ),
 		'gateways'    => class_exists( 'WooCommerce' ) && WC()->payment_gateways() ? array_keys( array_filter( WC()->payment_gateways()->payment_gateways(), function ( $g ) { return 'yes' === $g->enabled; } ) ) : array(),
 		'stripe'      => kbm_stripe_state(),
+		'orders'      => kbm_recent_orders(),
+		'mail_log'    => get_option( 'kbm_mail_log', array() ),
 		'php'         => PHP_VERSION,
 		'wp'          => get_bloginfo( 'version' ),
 	);
@@ -786,3 +788,37 @@ add_action( 'init', function () {
 		kbm_write_status();
 	}
 }, 20 );
+
+/* Last orders without personal data, for remote checks. */
+function kbm_recent_orders() {
+	if ( ! function_exists( 'wc_get_orders' ) ) {
+		return array();
+	}
+	$out = array();
+	foreach ( wc_get_orders( array( 'limit' => 5, 'orderby' => 'date', 'order' => 'DESC' ) ) as $o ) {
+		$items = array();
+		foreach ( $o->get_items() as $it ) {
+			$items[] = $it->get_name() . ' x' . $it->get_quantity();
+		}
+		$out[] = array(
+			'id'      => $o->get_id(),
+			'status'  => $o->get_status(),
+			'total'   => $o->get_total(),
+			'method'  => $o->get_payment_method(),
+			'paid'    => $o->get_date_paid() ? $o->get_date_paid()->date( 'c' ) : null,
+			'created' => $o->get_date_created() ? $o->get_date_created()->date( 'c' ) : null,
+			'items'   => $items,
+			'fees'    => array_map( function ( $f ) { return $f->get_name() . ' ' . $f->get_total(); }, array_values( $o->get_fees() ) ),
+		);
+	}
+	return $out;
+}
+/* Mail log: subject and result only, no addresses. */
+function kbm_mail_log_add( $subject, $ok ) {
+	$l   = (array) get_option( 'kbm_mail_log', array() );
+	$l[] = gmdate( 'c' ) . ' ' . ( $ok ? 'OK' : 'BŁĄD' ) . ' ' . wp_strip_all_tags( (string) $subject );
+	update_option( 'kbm_mail_log', array_slice( $l, -15 ), false );
+}
+add_action( 'wp_mail_succeeded', function ( $d ) { kbm_mail_log_add( $d['subject'] ?? '', true ); } );
+add_action( 'wp_mail_failed', function ( $e ) { $d = $e->get_error_data(); kbm_mail_log_add( ( $d['subject'] ?? '' ) . ' – ' . $e->get_error_message(), false ); } );
+add_action( 'woocommerce_order_status_changed', function () { kbm_write_status(); }, 99 );
