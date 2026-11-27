@@ -44,8 +44,8 @@ function kbm_pages_content() {
 	$home  = kbm_hero(
 		'{{img:hero}}',
 		'Wrocław · ul. Nyska 61A',
-		'Trenuj <em>po swojemu</em>.<br>W ciszy, z głową.',
-		'Kameralne studio treningu personalnego: 250 m² bez tłumów, profesjonalni trenerzy i wejście przez aplikację od 6:00 do 23:00.',
+		'Twoje <em>kameralne</em> studio treningu personalnego',
+		'250 m² bez tłumów, profesjonalni trenerzy i wejście przez aplikację codziennie od 6:00 do 23:00.',
 		kbm_cta_html( 'Kup karnet', 'Umów trening' ),
 		'<span>Bez tłumów i kolejek</span><span>Treningi personalne od 150 zł</span><span>Otwarte codziennie 6–23</span>'
 	);
