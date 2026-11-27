@@ -374,6 +374,15 @@ function kbm_selftest_checkout() {
 		$nopay = false !== stripos( $body, 'brak dostępnych metod płatności' ) || false !== stripos( $body, 'no available payment methods' );
 		$err   = preg_match_all( '/<ul class="woocommerce-error"[^>]*>(.*?)<\/ul>/s', $body, $m ) ? wp_strip_all_tags( implode( ' ', $m[1] ) ) : '';
 		$fee   = false !== strpos( $body, 'Kaucja' );
+		if ( 'Woda 0,5 l (kaucja)' === $label ) {
+			$sd = trailingslashit( wp_upload_dir()['basedir'] ) . 'kbm-snap/';
+			wp_mkdir_p( $sd );
+			file_put_contents( $sd . 'p18.html', $body );
+			$rc = wp_remote_get( wc_get_cart_url(), array( 'timeout' => 20, 'sslverify' => false, 'cookies' => array_values( $cookies ), 'user-agent' => 'KBM-Selftest' ) );
+			if ( ! is_wp_error( $rc ) ) {
+				file_put_contents( $sd . 'p19.html', wp_remote_retrieve_body( $rc ) );
+			}
+		}
 		$log[] = $label . ': HTTP ' . $code . ' -> ' . str_replace( home_url(), '', $url ) . ' | produkt w zamówieniu: ' . ( $has ? 'tak' : 'NIE' ) . ' | formularz zamówienia: ' . ( $form ? 'tak' : 'NIE' ) . ' | metody płatności: ' . $pay . ( $nopay ? ' (komunikat: brak metod płatności)' : '' ) . ( $fee ? ' | kaucja: tak' : '' ) . ( $err ? ' | BŁĄD: ' . trim( preg_replace( '/\s+/', ' ', $err ) ) : '' );
 	}
 	return $log;
