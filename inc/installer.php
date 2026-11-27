@@ -665,6 +665,29 @@ add_action( 'init', function () {
 	}, 999 );
 }, 99 );
 
+/* Stripe gateway state without any key material: only mode and which key types are present. */
+function kbm_stripe_state() {
+	$o = get_option( 'woocommerce_stripe_settings', array() );
+	if ( ! is_array( $o ) || ! $o ) {
+		return null;
+	}
+	$kind = function ( $k, $want ) use ( $o ) {
+		$v = isset( $o[ $k ] ) ? (string) $o[ $k ] : '';
+		return '' === $v ? 'brak' : ( 0 === strpos( $v, $want ) ? 'ok' : 'zly_format' );
+	};
+	return array(
+		'enabled'     => $o['enabled'] ?? null,
+		'testmode'    => $o['testmode'] ?? null,
+		'test_pk'     => $kind( 'test_publishable_key', 'pk_test_' ),
+		'test_sk'     => $kind( 'test_secret_key', 'sk_test_' ),
+		'live_pk'     => $kind( 'publishable_key', 'pk_live_' ),
+		'live_sk'     => $kind( 'secret_key', 'sk_live_' ),
+		'webhook'     => ! empty( $o['test_webhook_secret'] ) || ! empty( $o['webhook_secret'] ) ? 'ok' : 'brak',
+		'methods'     => $o['upe_checkout_experience_accepted_payments'] ?? null,
+		'oauth_test'  => ! empty( $o['test_connection_type'] ) ? $o['test_connection_type'] : null,
+	);
+}
+
 /* Status file for remote diagnostics (no personal data): wp-content/uploads/kbm-status.txt */
 function kbm_write_status() {
 	$up = wp_upload_dir( null, false );
@@ -691,6 +714,7 @@ function kbm_write_status() {
 		'woo'         => class_exists( 'WooCommerce' ) ? WC()->version : null,
 		'checkout_id' => get_option( 'woocommerce_checkout_page_id' ),
 		'gateways'    => class_exists( 'WooCommerce' ) && WC()->payment_gateways() ? array_keys( array_filter( WC()->payment_gateways()->payment_gateways(), function ( $g ) { return 'yes' === $g->enabled; } ) ) : array(),
+		'stripe'      => kbm_stripe_state(),
 		'php'         => PHP_VERSION,
 		'wp'          => get_bloginfo( 'version' ),
 	);
