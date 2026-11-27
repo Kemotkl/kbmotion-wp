@@ -12,6 +12,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
+// Another copy of this plugin (older folder) is already loaded: stay idle so both can be active during a folder switch.
+if ( defined( 'KBM_VERSION' ) ) {
+	return;
+}
+
 define( 'KBM_VERSION', '1.0.19' );
 define( 'KBM_FILE', __FILE__ );
 define( 'KBM_DIR', plugin_dir_path( __FILE__ ) );
