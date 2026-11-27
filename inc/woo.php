@@ -229,7 +229,7 @@ add_shortcode( 'kbm_cart_link', function () {
 		return '';
 	}
 	$n = WC()->cart ? (int) WC()->cart->get_cart_contents_count() : 0;
-	return '<a class="kbm-cart" href="' . esc_url( wc_get_cart_url() ) . '" aria-label="Koszyk"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="kbm-cart-count">' . $n . '</span></a>';
+	return '<a class="kbm-cart" href="' . esc_url( wc_get_cart_url() ) . '" aria-label="Koszyk"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="kbm-cart-count" data-count="' . $n . '">' . $n . '</span></a>';
 } );
 
 /* Bufet: product grid columns and "related" off for services. */
@@ -292,3 +292,22 @@ add_filter( 'gettext_woocommerce', function ( $t, $orig ) {
 add_filter( 'render_block_core/post-terms', function ( $html ) {
 	return str_replace( array( '__prefix">Category: <', '__prefix">Categories: <', '__prefix">Tags: <', '__prefix">Tag: <' ), array( '__prefix">Kategoria: <', '__prefix">Kategorie: <', '__prefix">Tagi: <', '__prefix">Tag: <' ), $html );
 } );
+
+/* One cart icon in the header: drop the account and mini-cart blocks WooCommerce hooks into block-theme headers. */
+add_filter( 'hooked_block_types', function ( $hooked ) {
+	return array_values( array_diff( (array) $hooked, array( 'woocommerce/customer-account', 'woocommerce/mini-cart', 'woocommerce/cart-link' ) ) );
+}, 99 );
+
+/* Clear names for payment methods instead of "Stripe". */
+add_filter( 'woocommerce_gateway_title', function ( $title, $id ) {
+	if ( 'stripe' === $id ) {
+		return 'Karta płatnicza, Apple Pay, Google Pay';
+	}
+	if ( 'stripe_blik' === $id ) {
+		return 'BLIK';
+	}
+	if ( 'stripe_p24' === $id ) {
+		return 'Przelewy24';
+	}
+	return $title;
+}, 20, 2 );

@@ -253,3 +253,19 @@ document.addEventListener('DOMContentLoaded', function () {
 			.finally(function () { busy = false; });
 	}
 })();
+
+/* Cart badge: pages can come from cache, so read the live count from the Store API when a cart exists. */
+(function () {
+	function set(n) {
+		document.querySelectorAll('.kbm-cart-count').forEach(function (el) { el.textContent = n; el.setAttribute('data-count', n); });
+		document.querySelectorAll('.kbm-cart').forEach(function (a) { a.setAttribute('aria-label', n ? 'Koszyk, produkty: ' + n : 'Koszyk'); });
+	}
+	function refresh() {
+		if (!/woocommerce_items_in_cart=1/.test(document.cookie)) { set(0); return; }
+		var root = (document.querySelector('link[rel="https://api.w.org/"]') || {}).href || '/wp-json/';
+		fetch(root + 'wc/store/v1/cart', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (c) { if (c && typeof c.items_count === 'number') set(c.items_count); }).catch(function () {});
+	}
+	document.addEventListener('DOMContentLoaded', refresh);
+	window.addEventListener('pageshow', function (e) { if (e.persisted) refresh(); });
+	if (window.jQuery) { jQuery(document.body).on('added_to_cart removed_from_cart updated_cart_totals wc_fragments_refreshed', refresh); }
+})();

@@ -534,7 +534,7 @@ function kbm_install_finalize() {
 		}
 		update_option( 'woocommerce_checkout_privacy_policy_text', 'Twoje dane osobowe zostaną wykorzystane do realizacji zamówienia, obsługi karnetu i w innych celach opisanych w naszej [privacy_policy].' );
 		update_option( 'woocommerce_registration_privacy_policy_text', 'Twoje dane osobowe zostaną wykorzystane do obsługi konta i w innych celach opisanych w naszej [privacy_policy].' );
-		update_option( 'woocommerce_checkout_terms_and_conditions_checkbox_text', 'Przeczytałem/am i akceptuję [terms] *' );
+		update_option( 'woocommerce_checkout_terms_and_conditions_checkbox_text', 'Przeczytałem/am i akceptuję [terms]' );
 		$wcp = (array) get_option( 'woocommerce_permalinks', array() );
 		$wcp['product_base']  = '/produkt';
 		$wcp['category_base'] = 'kategoria-produktu';
