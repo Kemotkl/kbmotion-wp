@@ -3,7 +3,7 @@ Theme Name: KB Motion
 Theme URI: https://kbmotion.pl
 Author: KB Motion
 Description: Motyw blokowy dla studia treningu personalnego KB Motion we Wrocławiu. Czerń i złoto, mobile first, gotowy pod WooCommerce.
-Version: 1.0.3
+Version: 1.0.4
 Requires at least: 6.5
 Requires PHP: 8.0
 License: GPL-2.0-or-later
@@ -222,3 +222,83 @@ img{max-width:100%;height:auto}
 .woocommerce ul.products li.product{width:auto!important;float:none!important;margin:0!important;display:flex;flex-direction:column;clear:none!important}
 .woocommerce ul.products li.product .button{margin-top:auto;align-self:flex-start}
 @media (max-width:600px){.woocommerce ul.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.woocommerce ul.products li.product{padding:10px 10px 14px!important}.woocommerce ul.products li.product .button{font-size:.82rem;padding:.6em 1em;align-self:stretch;text-align:center}}
+
+/* ---------------- Mobile polish (1.0.4) ---------------- */
+/* Header: one cart icon, bigger tap targets */
+.kbm-header .wp-block-woocommerce-customer-account,.kbm-header .wp-block-woocommerce-mini-cart,.kbm-header .wp-block-woocommerce-cart-link{display:none!important}
+.kbm-cart,.wp-block-navigation__responsive-container-open{width:44px;height:44px}
+.kbm-cart-count[data-count="0"]{display:none}
+.kbm-cart-count{font-size:12px;min-width:20px;height:20px;border-radius:10px}
+.kbm-logo a{display:flex;align-items:center;min-height:44px;min-width:44px}
+.wp-block-navigation__responsive-container-close{width:44px;height:44px;display:grid;place-items:center}
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content{display:block;padding-block:10px!important;font-size:1.25rem}
+
+/* Links that act as buttons */
+.kbm-footer__h{margin-bottom:6px!important}
+.kbm-footer__links{gap:0}
+.kbm-footer__links a{display:inline-flex;align-items:center;min-height:44px}
+.kbm-footer__legal-links{gap:0 18px}
+.kbm-footer__legal-links a{display:inline-flex;align-items:center;min-height:44px}
+.kbm-price__badge{font-size:12px}
+
+/* Forms: 16px stops iOS zoom, 48px fields, big checkboxes */
+input[type=text],input[type=email],input[type=tel],input[type=number],input[type=password],input[type=search],input[type=date],input[type=url],select,textarea,.woocommerce .input-text,.select2-container .select2-selection--single{font-size:16px!important}
+.woocommerce form .form-row .input-text,.woocommerce form .form-row select,.woocommerce-cart .coupon .input-text,.woocommerce .quantity .qty,.woocommerce-ordering select,.woocommerce div.product form.cart .variations select{min-height:48px;padding:10px 14px;border:1px solid #d6d0c4;border-radius:12px;background:#fff;color:var(--kbm-text);box-sizing:border-box}
+.woocommerce form .form-row textarea.input-text{min-height:110px}
+.woocommerce .quantity .qty{width:5em;text-align:center}
+.woocommerce form .form-row .input-text:focus,.woocommerce form .form-row select:focus,.woocommerce .quantity .qty:focus{outline:2px solid var(--kbm-gold);outline-offset:1px;border-color:var(--kbm-gold)}
+.woocommerce form .form-row label{font-weight:600;font-size:.95rem;margin-bottom:6px}
+input[type=checkbox],input[type=radio]{width:22px;height:22px;accent-color:var(--kbm-gold);vertical-align:middle;flex:0 0 auto}
+.woocommerce form .form-row label.checkbox,.woocommerce-form__label-for-checkbox{display:block!important;position:relative;padding:10px 0 10px 34px!important;min-height:44px;cursor:pointer;line-height:1.45}
+.woocommerce form .form-row label.checkbox input,.woocommerce-form__label-for-checkbox input{position:absolute;left:0;top:10px;margin:0!important}
+.woocommerce form .form-row{padding:3px 0;margin-right:0;margin-left:0}
+.woocommerce .required{color:#b4232a;text-decoration:none}
+
+/* Woo buttons */
+.woocommerce a.button,.woocommerce button.button,.woocommerce input.button,.woocommerce .wc-block-components-button,.wp-element-button.button{min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px!important;padding:10px 20px!important;font-weight:700}
+.woocommerce #payment #place_order,.woocommerce-cart .wc-proceed-to-checkout a.checkout-button{width:100%;min-height:54px;font-size:1.05rem;background:var(--kbm-gold)!important;color:#111!important}
+.wc-block-components-notice-banner .button.wc-forward{min-height:44px;padding:8px 0!important;background:none!important;text-decoration:underline}
+
+/* Checkout and cart layout */
+.woocommerce-info,.woocommerce-message,.woocommerce-error{border-radius:14px}
+.woocommerce-checkout .woocommerce-form-login-toggle .showlogin,.woocommerce-checkout .showcoupon{display:inline-block;padding-block:10px}
+.woocommerce table.shop_table{border-radius:14px;overflow:hidden;border-color:#e4ddd0}
+.woocommerce table.shop_table th,.woocommerce table.shop_table td{padding:14px 14px}
+.woocommerce-checkout #payment{background:#fff;border:1px solid #e4ddd0;border-radius:18px}
+.woocommerce-checkout #payment ul.payment_methods{border-bottom-color:#eee6d8;padding:16px 18px}
+.woocommerce-checkout #payment ul.payment_methods li{list-style:none;padding:6px 0}
+.woocommerce-checkout #payment ul.payment_methods li>label{display:inline-flex;align-items:center;gap:10px;font-weight:700;min-height:44px;cursor:pointer}
+.woocommerce-checkout #payment ul.payment_methods li>input{margin:0 8px 0 0}
+.woocommerce-checkout #payment div.payment_box{background:var(--kbm-paper);border-radius:12px;color:var(--kbm-text)}
+.woocommerce-checkout #payment div.payment_box::before{border-bottom-color:var(--kbm-paper)}
+.woocommerce-checkout #payment div.form-row{padding:18px}
+.woocommerce-checkout .woocommerce-privacy-policy-text{font-size:.9rem;color:#5c574f}
+@media (max-width:768px){
+	.woocommerce form .form-row-first,.woocommerce form .form-row-last{width:100%!important;float:none!important}
+	.woocommerce-checkout .col2-set .col-1,.woocommerce-checkout .col2-set .col-2{width:100%;float:none}
+	.woocommerce table.shop_table_responsive tr td,.woocommerce-page table.shop_table_responsive tr td{padding:12px 14px}
+	.woocommerce-cart table.cart td.actions .coupon{display:flex;flex-direction:column;gap:10px}
+	.woocommerce-cart table.cart td.actions .coupon .input-text{width:100%!important;margin:0!important}
+	.woocommerce-cart table.cart td.actions .button{width:100%}
+	.woocommerce-cart table.cart .product-remove a.remove{width:36px;height:36px;line-height:34px;font-size:1.6rem}
+}
+
+/* Shop, product, breadcrumbs, pagination */
+.woocommerce-breadcrumb a,.wc-block-breadcrumbs a,.wp-block-woocommerce-breadcrumbs a{display:inline-block;padding-block:12px}
+.wp-block-post-terms a{display:inline-block;padding-block:10px}
+.woocommerce nav.woocommerce-pagination ul li a,.woocommerce nav.woocommerce-pagination ul li span,.wp-block-query-pagination a,.wp-block-query-pagination .page-numbers{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.woocommerce ul.products li.product .button{width:100%}
+.woocommerce div.product form.cart{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.woocommerce div.product form.cart .single_add_to_cart_button{flex:1 1 200px;min-height:52px}
+.woocommerce div.product form.cart .variations td,.woocommerce div.product form.cart .variations th{display:block;padding:0 0 6px}
+.woocommerce div.product form.cart .variations select{width:100%}
+.woocommerce div.product form.cart .reset_variations{display:inline-block;padding-block:10px}
+.woocommerce-account .woocommerce-form-login,.woocommerce-account .woocommerce-form-register{border-radius:18px}
+.woocommerce div.product form.cart .woocommerce-variation-add-to-cart,.woocommerce div.product form.cart:not(.variations_form){display:flex;flex-wrap:nowrap;gap:12px;width:100%;align-items:stretch}
+.woocommerce div.product form.cart .woocommerce-variation-add-to-cart .single_add_to_cart_button,.woocommerce div.product form.cart:not(.variations_form) .single_add_to_cart_button{flex:1 1 auto;min-height:52px}
+.woocommerce div.product form.cart .quantity .qty{height:52px}
+.product_meta a,.wp-block-woocommerce-product-meta a{display:inline-block;padding-block:10px}
+.woocommerce a.button,.woocommerce button.button,.woocommerce input.button{box-sizing:border-box;max-width:100%;text-align:center;line-height:1.25}
+.woocommerce-cart .wc-proceed-to-checkout{padding:1em 0 0}
+.woocommerce-cart .wc-proceed-to-checkout a.checkout-button{display:flex!important;align-items:center;justify-content:center;margin:0!important;padding:12px 20px!important}
+@media (max-width:768px){.woocommerce-cart table.cart td.actions .coupon .button{width:100%!important;float:none}}
