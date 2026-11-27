@@ -34,6 +34,7 @@ add_action( 'wp_footer', function () {
 		return;
 	}
 	echo '<nav class="kbm-mbar" aria-label="Szybkie akcje"><a class="kbm-mbar__btn" href="' . esc_url( home_url( '/treningi-personalne/#rezerwacja' ) ) . '">Umów trening</a><a class="kbm-mbar__btn kbm-mbar__btn--gold" href="' . esc_url( home_url( '/karnety/' ) ) . '">Kup karnet</a></nav>';
+	echo '<script>(function(){var b=document.querySelector(".kbm-mbar");if(!b)return;function u(){b.classList.toggle("is-hidden",window.scrollY<Math.min(320,window.innerHeight*.45));}u();window.addEventListener("scroll",u,{passive:true});})();</script>';
 }, 30 );
 
 add_filter( 'body_class', function ( $c ) {
