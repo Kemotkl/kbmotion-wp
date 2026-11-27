@@ -822,3 +822,15 @@ function kbm_mail_log_add( $subject, $ok ) {
 add_action( 'wp_mail_succeeded', function ( $d ) { kbm_mail_log_add( $d['subject'] ?? '', true ); } );
 add_action( 'wp_mail_failed', function ( $e ) { $d = $e->get_error_data(); kbm_mail_log_add( ( $d['subject'] ?? '' ) . ' – ' . $e->get_error_message(), false ); } );
 add_action( 'woocommerce_order_status_changed', function () { kbm_write_status(); }, 99 );
+
+/* Clear title for the Stripe payment method on checkout (one-shot, no keys touched). */
+add_action( 'init', function () {
+	$want = 'Karta płatnicza, Apple Pay, Google Pay';
+	$o    = get_option( 'woocommerce_stripe_settings', array() );
+	if ( ! is_array( $o ) || ! $o || ( ( $o['title_upe'] ?? '' ) === $want && ( $o['title'] ?? '' ) === $want ) ) {
+		return;
+	}
+	$o['title_upe'] = $want;
+	$o['title']     = $want;
+	update_option( 'woocommerce_stripe_settings', $o );
+}, 21 );
