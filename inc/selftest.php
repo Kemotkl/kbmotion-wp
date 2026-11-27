@@ -387,3 +387,21 @@ function kbm_selftest_checkout() {
 	}
 	return $log;
 }
+
+/* Diagnostic files stay on disk for maintenance but are not served over HTTP. */
+add_action( 'init', function () {
+	if ( get_option( 'kbm_diag_protected' ) === '2' ) {
+		return;
+	}
+	$base = trailingslashit( wp_upload_dir()['basedir'] );
+	$rule = "\n# BEGIN KBM diagnostics\n<FilesMatch \"^kbm-(selftest|status)\\.txt$\">\nRequire all denied\n</FilesMatch>\n# END KBM diagnostics\n";
+	$ht   = $base . '.htaccess';
+	$cur  = file_exists( $ht ) ? (string) file_get_contents( $ht ) : '';
+	if ( false === strpos( $cur, 'BEGIN KBM diagnostics' ) ) {
+		file_put_contents( $ht, $cur . $rule );
+	}
+	wp_mkdir_p( $base . 'kbm-snap' );
+	file_put_contents( $base . 'kbm-snap/.htaccess', "Require all denied\n" );
+	file_put_contents( $base . 'kbm-snap/index.html', '' );
+	update_option( 'kbm_diag_protected', '2', false );
+}, 1 );
