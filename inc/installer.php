@@ -717,6 +717,9 @@ function kbm_write_status() {
 		'stripe'      => kbm_stripe_state(),
 		'orders'      => kbm_recent_orders(),
 		'mail_log'    => get_option( 'kbm_mail_log', array() ),
+		'home'        => home_url( '/' ),
+		'domain_migrated' => get_option( 'kbm_domain_migrated_log', '' ),
+		'blog_public' => get_option( 'blog_public' ),
 		'php'         => PHP_VERSION,
 		'wp'          => get_bloginfo( 'version' ),
 	);
@@ -834,3 +837,26 @@ add_action( 'init', function () {
 	$o['title']     = $want;
 	update_option( 'woocommerce_stripe_settings', $o );
 }, 21 );
+
+/* One-shot URL fix after the domain switch: rewrite leftover absolute links to the temporary domain in content (serialized values are skipped). */
+add_action( 'init', function () {
+	$old  = 'woolly-cyan-crane-37.hostingersite.com';
+	$host = wp_parse_url( home_url(), PHP_URL_HOST );
+	if ( ! $host || $host === $old || get_option( 'kbm_domain_migrated' ) === $host ) {
+		return;
+	}
+	global $wpdb;
+	$from = array( 'https://' . $old, 'http://' . $old, 'https:\/\/' . $old );
+	$to   = array( 'https://' . $host, 'https://' . $host, 'https:\/\/' . $host );
+	$n    = 0;
+	foreach ( array_keys( $from ) as $i ) {
+		$n += (int) $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_content = REPLACE(post_content, %s, %s), post_excerpt = REPLACE(post_excerpt, %s, %s) WHERE post_content LIKE %s OR post_excerpt LIKE %s", $from[ $i ], $to[ $i ], $from[ $i ], $to[ $i ], '%' . $wpdb->esc_like( $from[ $i ] ) . '%', '%' . $wpdb->esc_like( $from[ $i ] ) . '%' ) );
+		$n += (int) $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->postmeta} SET meta_value = REPLACE(meta_value, %s, %s) WHERE meta_value LIKE %s AND meta_value NOT REGEXP '^(a|O|s):[0-9]+:'", $from[ $i ], $to[ $i ], '%' . $wpdb->esc_like( $from[ $i ] ) . '%' ) );
+	}
+	update_option( 'kbm_domain_migrated', $host, false );
+	update_option( 'kbm_domain_migrated_log', gmdate( 'c' ) . ' ' . $old . ' -> ' . $host . ', zmienione wiersze: ' . $n, false );
+	wp_cache_flush();
+	if ( function_exists( 'kbm_write_status' ) ) {
+		kbm_write_status();
+	}
+}, 5 );
