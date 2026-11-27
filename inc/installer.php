@@ -768,3 +768,21 @@ function kbm_dedupe_media() {
 	}
 }
 
+
+/* One-shot Stripe mode switch (no key material touched). Change KBM_STRIPE_MODE to flip test/live once. */
+define( 'KBM_STRIPE_MODE', 'test' );
+add_action( 'init', function () {
+	if ( get_option( 'kbm_stripe_mode_applied' ) === KBM_STRIPE_MODE ) {
+		return;
+	}
+	$o = get_option( 'woocommerce_stripe_settings', array() );
+	if ( ! is_array( $o ) || ! $o ) {
+		return;
+	}
+	$o['testmode'] = 'test' === KBM_STRIPE_MODE ? 'yes' : 'no';
+	update_option( 'woocommerce_stripe_settings', $o );
+	update_option( 'kbm_stripe_mode_applied', KBM_STRIPE_MODE, false );
+	if ( function_exists( 'kbm_write_status' ) ) {
+		kbm_write_status();
+	}
+}, 20 );
