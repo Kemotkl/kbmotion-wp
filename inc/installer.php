@@ -772,7 +772,7 @@ function kbm_dedupe_media() {
 
 
 /* One-shot Stripe mode switch (no key material touched). Change KBM_STRIPE_MODE to flip test/live once. */
-define( 'KBM_STRIPE_MODE', 'test' );
+define( 'KBM_STRIPE_MODE', 'live' );
 add_action( 'init', function () {
 	if ( get_option( 'kbm_stripe_mode_applied' ) === KBM_STRIPE_MODE ) {
 		return;
