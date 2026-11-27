@@ -46,4 +46,4 @@ add_action( 'template_redirect', function () {
 		wp_safe_redirect( home_url( '/' ), 301 );
 		exit;
 	}
-} );
+}, 1 ); // before WordPress's own 404 slug guessing (redirect_canonical, priority 10).
