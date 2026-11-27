@@ -6,7 +6,7 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-define( 'KBM_SELFTEST_REV', 7 );
+define( 'KBM_SELFTEST_REV', 8 );
 
 function kbm_st_get( $url, $args = array() ) {
 	$args = wp_parse_args( $args, array( 'timeout' => 20, 'redirection' => 0, 'sslverify' => false, 'user-agent' => 'KBM-Selftest' ) );

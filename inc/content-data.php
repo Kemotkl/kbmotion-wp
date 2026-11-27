@@ -63,11 +63,11 @@ function kbm_products_data() {
 	};
 	return array(
 		/* ----- Karnety ----- */
-		array( 'slug' => 'silownia', 'name' => 'Siłownia', 'cat' => 'karnety', 'type' => 'variable', 'order' => 1, 'sold_ind' => 1, 'attr' => 'Okres',
+		array( 'slug' => 'silownia', 'name' => 'Siłownia', 'cat' => 'karnety', 'type' => 'variable', 'order' => 2, 'sold_ind' => 1, 'attr' => 'Okres',
 			'vars' => array( array( 'Bez zobowiązań', 399, '/ mies.' ), array( 'Umowa 6 miesięcy', 379, '/ mies.' ), array( 'Umowa 12 miesięcy', 369, '/ mies.' ) ),
 			'short' => $ul( array( 'Siłownia i sala fitness codziennie 6:00–23:00', 'Wejście na kod QR z aplikacji', 'Bez zajęć grupowych' ) ),
 			'desc' => '<p>Karnet uprawniający do korzystania z siłowni wraz z salą fitness, bez zajęć grupowych. Wariant bez zobowiązań możesz zakończyć w dowolnym momencie. Warianty z umową na 6 lub 12 miesięcy mają niższą cenę miesięczną: online płacisz za pierwszy miesiąc, a kolejne opłaty rozliczamy co miesiąc zgodnie z umową.</p>' ),
-		array( 'slug' => 'silownia-z-trenerem', 'name' => 'Siłownia z trenerem', 'cat' => 'karnety', 'type' => 'simple', 'price' => 219, 'unit' => '/ mies.', 'order' => 2, 'featured' => 1, 'sold_ind' => 1,
+		array( 'slug' => 'silownia-z-trenerem', 'name' => 'Siłownia z trenerem', 'cat' => 'karnety', 'type' => 'simple', 'price' => 219, 'unit' => '/ mies.', 'order' => 1, 'featured' => 1, 'sold_ind' => 1,
 			'short' => $ul( array( 'Dla osób trenujących z trenerem personalnym', 'Na czas nieokreślony, bez okresu wypowiedzenia', 'Dostęp do siłowni i sali fitness', 'Trener rozliczany osobno' ) ),
 			'desc' => '<p>Karnet umożliwiający korzystanie z siłowni osobom, które trenują z trenerem personalnym KB Motion. Karnet jest na czas nieokreślony i nie ma okresu wypowiedzenia: płacisz co miesiąc i możesz zrezygnować w dowolnym momencie. Treningi z trenerem kupujesz osobno jako pojedyncze treningi lub pakiet.</p>' ),
 		array( 'slug' => 'zajecia-grupowe', 'name' => 'Zajęcia grupowe', 'cat' => 'karnety', 'type' => 'variable', 'order' => 3, 'sold_ind' => 1, 'attr' => 'Wejścia',
