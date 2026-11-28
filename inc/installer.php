@@ -685,7 +685,35 @@ function kbm_stripe_state() {
 		'webhook'     => ! empty( $o['test_webhook_secret'] ) || ! empty( $o['webhook_secret'] ) ? 'ok' : 'brak',
 		'methods'     => $o['upe_checkout_experience_accepted_payments'] ?? null,
 		'oauth_test'  => ! empty( $o['test_connection_type'] ) ? $o['test_connection_type'] : null,
+		'webhook_live' => ! empty( $o['webhook_secret'] ) ? 'ok' : 'brak',
+		'settings'    => kbm_stripe_public_settings( $o ),
+		'wcstripe'    => kbm_stripe_public_options(),
 	);
+}
+
+/* Non-secret Stripe settings for diagnostics: drops anything that looks like a key, secret or token. */
+function kbm_stripe_public_settings( $o ) {
+	$out = array();
+	foreach ( $o as $k => $v ) {
+		if ( preg_match( '/key|secret|token|account|email|phone|statement/i', $k ) ) {
+			continue;
+		}
+		$out[ $k ] = is_scalar( $v ) ? substr( (string) $v, 0, 80 ) : ( is_array( $v ) ? array_slice( array_map( function ( $x ) { return is_scalar( $x ) ? substr( (string) $x, 0, 40 ) : '…'; }, $v ), 0, 15 ) : '…' );
+	}
+	return $out;
+}
+
+function kbm_stripe_public_options() {
+	global $wpdb;
+	$rows = $wpdb->get_results( "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE 'wcstripe\_%' OR option_name LIKE 'wc\_stripe\_%' LIMIT 60" );
+	$out  = array();
+	foreach ( (array) $rows as $r ) {
+		if ( preg_match( '/key|secret|token|account|email/i', $r->option_name ) ) {
+			continue;
+		}
+		$out[ $r->option_name ] = substr( (string) $r->option_value, 0, 120 );
+	}
+	return $out;
 }
 
 /* Status file for remote diagnostics (no personal data): wp-content/uploads/kbm-status.txt */
