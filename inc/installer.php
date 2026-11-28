@@ -750,6 +750,7 @@ function kbm_write_status() {
 		'home'        => home_url( '/' ),
 		'domain_migrated' => get_option( 'kbm_domain_migrated_log', '' ),
 		'blog_public' => get_option( 'blog_public' ),
+		'applepay'    => get_option( 'kbm_applepay_result', '' ),
 		'php'         => PHP_VERSION,
 		'wp'          => get_bloginfo( 'version' ),
 	);
@@ -906,3 +907,28 @@ add_action( 'init', function () {
 	update_option( 'kbm_applepay_reset', '1', false );
 	flush_rewrite_rules( false );
 }, 3 );
+
+/* Register kbmotion.pl as a Stripe payment method domain (Apple Pay / Google Pay) using the Stripe plugin's own code. Retries at most 3 times, 10 minutes apart. */
+add_action( 'init', function () {
+	if ( ! class_exists( 'WC_Stripe_Apple_Pay_Registration' ) || ! class_exists( 'WC_Stripe_Helper' ) ) {
+		return;
+	}
+	$s    = WC_Stripe_Helper::get_stripe_settings();
+	$host = (string) wp_parse_url( get_site_url(), PHP_URL_HOST );
+	if ( ( $s['apple_pay_domain_set'] ?? '' ) === 'yes' && ( $s['apple_pay_verified_domain'] ?? '' ) === $host ) {
+		return;
+	}
+	$tries = (int) get_option( 'kbm_applepay_tries', 0 );
+	if ( $tries >= 3 || get_transient( 'kbm_applepay_wait' ) ) {
+		return;
+	}
+	set_transient( 'kbm_applepay_wait', 1, 10 * MINUTE_IN_SECONDS );
+	update_option( 'kbm_applepay_tries', $tries + 1, false );
+	$r = new WC_Stripe_Apple_Pay_Registration();
+	$r->register_domain_if_configured();
+	$after = WC_Stripe_Helper::get_stripe_settings();
+	update_option( 'kbm_applepay_result', gmdate( 'c' ) . ' ' . $host . ' set=' . ( $after['apple_pay_domain_set'] ?? '?' ) . ' ' . substr( (string) $r->apple_pay_registration_notice, 0, 200 ), false );
+	if ( function_exists( 'kbm_write_status' ) ) {
+		kbm_write_status();
+	}
+}, 30 );
