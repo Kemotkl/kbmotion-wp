@@ -8,6 +8,8 @@ function kbm_media_sources() {
 	$a = 'https://assets.zyrosite.com/xiOxc95W3ywYtK9n/';
 	$s = 'https://cdn.zyrosite.com/cdn-ecommerce/store_01M2FSJSWSP7PS97MW4QT8V00V/assets/';
 	return array(
+		'tr_tomasz'     => array( KBM_URL . 'assets/img/trener-tomasz-kluzek.jpg', 'Tomasz Kluzek – trener personalny KB Motion Wrocław' ),
+		'tr_piotr'      => array( KBM_URL . 'assets/img/trener-piotr-brzostowicz.jpg', 'Piotr Brzóstowicz – trener personalny KB Motion Wrocław' ),
 		'logo'          => array( $a . 'fe78bfe3-56f3-43bb-bdde-7d90d5a46250-hyZsSB0QC2VvVEoB.png', 'Logo KB Motion' ),
 		'hero'          => array( $a . 'img_9810-rZ3PoFIyVFuNMVzZ.JPG', 'Studio KB Motion Wrocław' ),
 		'studio1'       => array( $a . 'img_9806-jmsLqJpxsfEoc2p6.JPG', 'Wnętrze studia KB Motion' ),
@@ -43,8 +45,8 @@ function kbm_media_sources() {
 function kbm_trainers_data() {
 	// name, role, tags, owner, order, price per training (PLN, 0 = no personal training), photo (media key)
 	return array(
-		array( 'Piotr Brzóstowicz', 'Właściciel · trener personalny', '', 1, 1, 200 ),
-		array( 'Tomasz Kluzek', 'Właściciel · trener personalny', 'redukcja, siła, dietetyka', 1, 2, 200 ),
+		array( 'Piotr Brzóstowicz', 'Właściciel · trener personalny', '', 1, 1, 200, 'tr_piotr' ),
+		array( 'Tomasz Kluzek', 'Właściciel · trener personalny', 'redukcja, siła, dietetyka', 1, 2, 200, 'tr_tomasz' ),
 		array( 'Patryk Górecki', 'Treningi personalne', '', 0, 3, 200, 'studio9' ),
 		array( 'Kasia Górecka', 'Treningi personalne', '', 0, 4, 200, 't_b' ),
 		array( 'Gustave Cordonnier', 'Treningi personalne', '', 0, 5, 150, 't_a' ),
