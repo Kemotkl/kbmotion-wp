@@ -31,7 +31,7 @@ function kbm_head( $eyebrow, $title, $lead = '', $center = false, $tag = 'h2' ) 
 function kbm_consult_compare_html() {
 	return kbm_html( '<div class="kbm-consult" role="group" aria-label="Jak zacząć: konsultacja online lub trening w studiu">'
 		. '<div class="kbm-consult__card"><p class="kbm-eyebrow">Online</p><h3>Konsultacja online</h3><p class="kbm-consult__price">0 zł</p><p>Rozmowa z trenerem o Twoim celu, zdrowiu i dotychczasowych treningach. Doradzimy, od czego zacząć i jaki karnet lub pakiet wybrać.</p><a class="kbm-btn kbm-btn--ghost" href="/trening-probny/#zapis">Zapisz się bezpłatnie</a></div>'
-		. '<div class="kbm-consult__card is-gold"><p class="kbm-eyebrow">W studiu, ul. Nyska 61A</p><h3>Konsultacja + trening</h3><p class="kbm-consult__price">99 zł</p><p>Ok. 60 minut z wybranym trenerem na miejscu: konsultacja, pierwszy trening wdrożeniowy, ocena techniki i plan na start.</p><a class="kbm-btn kbm-btn--gold" href="/treningi-personalne/#pakiety">Kup za 99 zł</a></div>'
+		. '<div class="kbm-consult__card is-gold"><p class="kbm-eyebrow">W studiu, ul. Nyska 61A</p><h3>Konsultacja + trening</h3><p class="kbm-consult__price">99 zł</p><p>Ok. 60 minut z wybranym trenerem na miejscu: konsultacja, pierwszy trening wdrożeniowy i ocena techniki.</p><a class="kbm-btn kbm-btn--gold" href="/treningi-personalne/#pakiety">Kup za 99 zł</a></div>'
 		. '</div>' );
 }
 
@@ -146,7 +146,7 @@ function kbm_pages_content() {
 	);
 	$t .= kbm_section(
 		kbm_head( 'Jak pracujemy', 'Od pierwszej rozmowy do efektów', '', true )
-		. kbm_html( '<div class="kbm-steps"><div class="kbm-step"><h3>Konsultacja</h3><p>Poznajemy Twój cel, historię treningową i zdrowie (ankieta PAR-Q). Online za darmo albo w studiu razem z pierwszym treningiem za 99 zł.</p></div><div class="kbm-step"><h3>Trening wdrożeniowy</h3><p>Sprawdzamy technikę i możliwości. Dostajesz plan na najbliższe tygodnie.</p></div><div class="kbm-step"><h3>Regularna praca</h3><p>Trener pilnuje progresji, techniki i motywacji. Ty widzisz efekty.</p></div></div>' ) . kbm_consult_compare_html(),
+		. kbm_html( '<div class="kbm-steps"><div class="kbm-step"><h3>Konsultacja</h3><p>Poznajemy Twój cel, historię treningową i zdrowie (ankieta PAR-Q). Online za darmo albo w studiu razem z pierwszym treningiem za 99 zł.</p></div><div class="kbm-step"><h3>Trening wdrożeniowy</h3><p>Sprawdzamy technikę i możliwości.</p></div><div class="kbm-step"><h3>Regularna praca</h3><p>Trener pilnuje progresji, techniki i motywacji. Ty widzisz efekty.</p></div></div>' ) . kbm_consult_compare_html(),
 		'is-dark'
 	);
 	$t .= kbm_section(

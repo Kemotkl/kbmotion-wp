@@ -89,7 +89,7 @@ function kbm_products_data() {
 
 		/* ----- Treningi personalne ----- */
 		array( 'slug' => 'trening-wdrozeniowy-konsultacja', 'name' => 'Trening wdrożeniowy + konsultacja', 'cat' => 'treningi-personalne', 'type' => 'simple', 'price' => 99, 'unit' => '', 'order' => 1, 'featured' => 1, 'cta' => 'Zacznij od tego',
-			'short' => $ul( array( 'Ok. 60 minut z wybranym trenerem', 'Konsultacja celu i zdrowia', 'Ocena techniki i plan na start' ) ),
+			'short' => $ul( array( 'Ok. 60 minut z wybranym trenerem', 'Konsultacja celu i zdrowia', 'Ocena techniki' ) ),
 			'desc' => '<p>Najlepszy sposób, aby zacząć. Trening wdrożeniowy wraz z konsultacją z dowolnie wybranym trenerem (około 60 minut). Poznamy Twój cel, sprawdzimy technikę i zaproponujemy plan.</p>' ),
 		array( 'slug' => 'trening-personalny', 'name' => 'Trening personalny', 'cat' => 'treningi-personalne', 'type' => 'variable', 'order' => 2, 'attr' => 'Trener',
 			'vars' => 'TRAINERS',
