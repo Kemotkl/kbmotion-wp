@@ -691,27 +691,29 @@ function kbm_stripe_state() {
 	);
 }
 
-/* Non-secret Stripe settings for diagnostics: drops anything that looks like a key, secret or token. */
+/* Non-secret Stripe settings for diagnostics: whitelist only (Apple Pay / express checkout / domain / webhook status). */
 function kbm_stripe_public_settings( $o ) {
 	$out = array();
 	foreach ( $o as $k => $v ) {
-		if ( preg_match( '/key|secret|token|account|email|phone|statement/i', $k ) ) {
+		if ( ! preg_match( '/^(express_checkout|payment_request|apple_pay|google_pay|upe_|is_|capture|enabled|testmode|title)/', $k ) || preg_match( '/key|secret|token/i', $k ) ) {
 			continue;
 		}
-		$out[ $k ] = is_scalar( $v ) ? substr( (string) $v, 0, 80 ) : ( is_array( $v ) ? array_slice( array_map( function ( $x ) { return is_scalar( $x ) ? substr( (string) $x, 0, 40 ) : '…'; }, $v ), 0, 15 ) : '…' );
+		$out[ $k ] = is_scalar( $v ) ? substr( (string) $v, 0, 60 ) : ( is_array( $v ) ? implode( ',', array_filter( array_map( function ( $x ) { return is_scalar( $x ) ? substr( (string) $x, 0, 30 ) : ''; }, $v ) ) ) : '' );
 	}
 	return $out;
 }
 
 function kbm_stripe_public_options() {
 	global $wpdb;
-	$rows = $wpdb->get_results( "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE 'wcstripe\_%' OR option_name LIKE 'wc\_stripe\_%' LIMIT 60" );
+	$rows = $wpdb->get_results( "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE 'wcstripe\\_%' OR option_name LIKE 'wc\\_stripe\\_%' LIMIT 80" );
 	$out  = array();
 	foreach ( (array) $rows as $r ) {
-		if ( preg_match( '/key|secret|token|account|email/i', $r->option_name ) ) {
+		$n = $r->option_name;
+		if ( preg_match( '/key|secret|token|account|email|oauth/i', $n ) ) {
 			continue;
 		}
-		$out[ $r->option_name ] = substr( (string) $r->option_value, 0, 120 );
+		$v = (string) $r->option_value;
+		$out[ $n ] = preg_match( '/domain|webhook|apple|express|payment_request|version/i', $n ) && strlen( $v ) < 100 && ! preg_match( '/(sk|pk|rk|whsec|acct)_[A-Za-z0-9]/', $v ) ? $v : 'len:' . strlen( $v );
 	}
 	return $out;
 }
