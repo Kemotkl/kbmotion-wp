@@ -16,13 +16,14 @@ function kbm_faq_data() {
 		),
 		'treningi' => array(
 			array( 'Jak zacząć współpracę z trenerem?', 'Masz dwie możliwości. Konsultacja online z trenerem jest bezpłatna. Konsultacja w studiu razem z pierwszym treningiem wdrożeniowym (ok. 60 minut) kosztuje 99 zł: poznamy Twoje cele, sprawdzimy technikę i ułożymy plan.' ),
-			array( 'Ile kosztuje trening personalny?', 'Konsultacja online jest bezpłatna. Konsultacja z pierwszym treningiem w studiu kosztuje 99 zł. Kolejne treningi zależą od trenera: 200 zł (Piotr, Tomasz, Patryk, Kasia) lub 150 zł (Gustave, Aleksander, Paweł). Pakiet 10 treningów z trenerem klubowym kosztuje 1500 zł.' ),
+			array( 'Ile kosztuje trening personalny?', 'Konsultacja online jest bezpłatna. Konsultacja z pierwszym treningiem w studiu kosztuje 99 zł. Kolejne treningi zależą od trenera: 200 zł (Piotr, Tomasz, Patryk, Kasia) lub 150 zł (Gustave, Aleksander, Paweł). Pakiet 10 treningów z trenerem klubowym kosztuje 1500 zł. Trening personalny dla dwóch osób kosztuje 250 zł, a pakiet 10 treningów dla dwóch osób 2500 zł.' ),
 			array( 'Czy do treningów personalnych potrzebuję karnetu?', 'Tak, do treningów i pakietów potrzebny jest aktywny karnet na wejście do studia. Najkorzystniejszy jest karnet Siłownia z trenerem (219 zł/mies.) albo Siłownia 4 wejścia w miesiącu (149 zł).' ),
 			array( 'Czy mogę wybrać konkretnego trenera?', 'Tak. Przy pojedynczym treningu wybierasz trenera przy zakupie albo w formularzu rezerwacji, gdzie przy każdym nazwisku widać cenę. W pakiecie 10 treningów trenera dobiera klub.' ),
 			array( 'Jak odwołać trening?', 'Trening można odwołać lub przełożyć najpóźniej 24 godziny przed jego rozpoczęciem. Później trening może zostać uznany za zrealizowany.' ),
 			array( 'Mam kontuzję. Czy mogę trenować?', 'W większości przypadków tak, a trening z trenerem jest wtedy najbezpieczniejszy. Przed pierwszym treningiem wypełnisz krótką ankietę zdrowotną PAR-Q, a trener dopasuje ćwiczenia do Twoich możliwości.' ),
 		),
 		'ogolne'   => array(
+			array( 'Czy mogę najpierw zobaczyć studio?', 'Tak. Pierwsze wejście do klubu jest darmowe. Napisz do nas albo zadzwoń, a umówimy dogodną godzinę, żebyś mógł sprawdzić studio, zanim kupisz karnet.' ),
 			array( 'Gdzie jest studio i w jakich godzinach działa?', 'KB Motion mieści się przy ul. Nyskiej 61A we Wrocławiu. Studio jest otwarte codziennie od 06:00 do 23:00.' ),
 			array( 'Czym KB Motion różni się od zwykłej siłowni?', 'To kameralne studio treningu personalnego o powierzchni 250 m². Zamiast tłumu masz spokojną przestrzeń, strefę siłową i salę fitness oraz trenerów, którzy znają Cię z imienia.' ),
 			array( 'Jak zapisać się na zajęcia grupowe?', 'Na zajęcia zapisujesz się w aplikacji KB Motion. Wybierasz karnet na 4 lub 8 wejść w miesiącu albo wejście jednorazowe.' ),

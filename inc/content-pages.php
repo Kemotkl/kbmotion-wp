@@ -54,9 +54,13 @@ function kbm_pages_content() {
 		'Twoje <em>kameralne</em> studio treningu personalnego',
 		'250 m² bez tłumów, profesjonalni trenerzy i wejście przez aplikację codziennie od 6:00 do 23:00.',
 		kbm_cta_html( 'Kup karnet', 'Umów trening' ),
-		'<span>Bez tłumów i kolejek</span><span>Treningi personalne od 150 zł</span><span>Otwarte codziennie 6–23</span>'
+		'<span>Pierwsze wejście gratis</span><span>Treningi personalne od 150 zł</span><span>Otwarte codziennie 6–23</span>'
 	);
 	$home .= kbm_html( '<div class="kbm-strip alignfull" aria-hidden="true"><div class="kbm-strip__track"><span>Trening personalny</span><span>Redukcja tkanki tłuszczowej</span><span>Przygotowanie motoryczne</span><span>Siła i sylwetka</span><span>Zdrowy kręgosłup</span><span>Zajęcia grupowe</span><span>Trening personalny</span><span>Redukcja tkanki tłuszczowej</span><span>Przygotowanie motoryczne</span><span>Siła i sylwetka</span><span>Zdrowy kręgosłup</span><span>Zajęcia grupowe</span></div></div>' );
+	$home .= kbm_section(
+		kbm_html( '<div class="kbm-inline-cta kbm-free-entry" style="margin:0"><p class="kbm-eyebrow">Na dobry początek</p><h2>Pierwsze wejście do klubu jest darmowe</h2><p>Przyjdź na ul. Nyską 61A i sprawdź studio, zanim kupisz karnet. Pierwsze wejście nic Cię nie kosztuje.</p><div class="kbm-btn-row"><a class="kbm-btn kbm-btn--gold" href="/kontakt/">Umów pierwsze wejście</a><a class="kbm-btn kbm-btn--ghost" href="/karnety/">Zobacz karnety</a></div></div>' ),
+		'is-sand'
+	);
 	$home .= kbm_section(
 		kbm_head( 'Dlaczego KB Motion', 'Przestrzeń zaprojektowana<br>dla Twojego komfortu', 'Powstaliśmy z potrzeby stworzenia dyskretnego miejsca dla wymagających mieszkańców Wrocławia. Zamiast przepełnionych sal: spokój, porządek i trener, który zna Twoje cele.' )
 		. kbm_html( '<div class="kbm-features">'
@@ -133,14 +137,14 @@ function kbm_pages_content() {
 		'Trener, który<br><em>prowadzi Cię do celu</em>',
 		'Redukcja tkanki tłuszczowej, budowa siły, przygotowanie motoryczne i zdrowy kręgosłup. Indywidualny plan, pełna uwaga trenera i kameralne warunki.',
 		'<div class="kbm-btn-row"><a class="kbm-btn kbm-btn--gold" href="#pakiety">Zobacz ceny</a><a class="kbm-btn kbm-btn--ghost" href="#rezerwacja">Zarezerwuj trenera</a></div>',
-		'<span>Pierwszy trening + konsultacja 99 zł</span><span>Treningi od 150 zł</span><span>Pakiet 10 treningów 1500 zł</span>'
+		'<span>Pierwszy trening + konsultacja 99 zł</span><span>Treningi od 150 zł</span><span>Pakiet 10 treningów 1500 zł</span><span>Trening dla dwóch osób 250 zł</span>'
 	);
 	$t .= kbm_section(
 		kbm_head( 'Dla kogo', 'Z czym przychodzą do nas klienci' )
 		. kbm_html( '<div class="kbm-features"><div class="kbm-feature kbm-reveal"><h3>Redukcja tkanki tłuszczowej</h3><p>Trening i nawyki, które da się utrzymać. Bez głodówek i cudownych diet.</p></div><div class="kbm-feature kbm-reveal"><h3>Siła i sylwetka</h3><p>Progresja oparta na technice. Wiesz, co robisz i dlaczego.</p></div><div class="kbm-feature kbm-reveal"><h3>Przygotowanie motoryczne</h3><p>Szybkość, moc i sprawność dla sportowców amatorów i zawodników.</p></div><div class="kbm-feature kbm-reveal"><h3>Zdrowy kręgosłup</h3><p>Mobilność, stabilizacja i bezpieczny powrót do ruchu po przerwie lub kontuzji.</p></div></div>' )
 	);
 	$t .= kbm_section(
-		kbm_html( '<div id="pakiety"></div>' ) . kbm_head( 'Cennik', 'Wybierz, jak chcesz zacząć', 'Cena treningu zależy od trenera. Płacisz online, a termin ustalamy telefonicznie w ciągu jednego dnia roboczego.', true )
+		kbm_html( '<div id="pakiety"></div>' ) . kbm_head( 'Cennik', 'Wybierz, jak chcesz zacząć', 'Cena treningu zależy od trenera, a trening dla dwóch osób kosztuje 250 zł. Płacisz online, a termin ustalamy telefonicznie w ciągu jednego dnia roboczego.', true )
 		. kbm_sc( '[kbm_pricing cat="treningi-personalne"]' ),
 		'is-sand'
 	);

@@ -244,11 +244,12 @@ function kbm_install_woo() {
 		}
 	}
 	foreach ( kbm_products_data() as $d ) {
-		if ( isset( $d['vars'] ) && 'TRAINERS' === $d['vars'] ) {
+		if ( isset( $d['vars'] ) && in_array( $d['vars'], array( 'TRAINERS', 'TRAINERS_DUO' ), true ) ) {
+			$duo       = ( 'TRAINERS_DUO' === $d['vars'] );
 			$d['vars'] = array();
 			foreach ( kbm_trainers_data() as $tr ) {
 				if ( ! empty( $tr[5] ) ) {
-					$d['vars'][] = array( $tr[0], $tr[5], '/ trening' );
+					$d['vars'][] = array( $tr[0], $duo ? 250 : $tr[5], '/ trening' );
 				}
 			}
 		}
@@ -795,7 +796,7 @@ add_action( 'init', function () {
 	if ( version_compare( $v, KBM_VERSION, '>=' ) || ! get_option( 'kbm_installed' ) ) {
 		return;
 	}
-	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : ( version_compare( $v, '1.0.4', '<' ) ? array( 'media', 'trainers', 'woo', 'pages', 'posts', 'finalize' ) : ( version_compare( $v, '1.0.14', '<' ) ? array( 'woo', 'finalize' ) : ( version_compare( $v, '1.0.19', '<' ) ? array( 'pages', 'finalize' ) : ( version_compare( $v, '1.0.26', '<' ) ? array( 'media', 'trainers', 'woo', 'pages', 'finalize' ) : ( version_compare( $v, '1.0.29', '<' ) ? array( 'woo', 'pages', 'finalize' ) : array( 'finalize' ) ) ) ) ) );
+	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : ( version_compare( $v, '1.0.4', '<' ) ? array( 'media', 'trainers', 'woo', 'pages', 'posts', 'finalize' ) : ( version_compare( $v, '1.0.14', '<' ) ? array( 'woo', 'finalize' ) : ( version_compare( $v, '1.0.19', '<' ) ? array( 'pages', 'finalize' ) : ( version_compare( $v, '1.0.26', '<' ) ? array( 'media', 'trainers', 'woo', 'pages', 'finalize' ) : ( version_compare( $v, '1.0.30', '<' ) ? array( 'woo', 'pages', 'finalize' ) : array( 'finalize' ) ) ) ) ) );
 	$done  = array_values( array_diff( (array) get_option( 'kbm_auto_done', array() ), $rerun ) );
 	update_option( 'kbm_auto_done', $done, false );
 	update_option( 'kbm_auto_install', 1, false );

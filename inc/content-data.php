@@ -95,9 +95,16 @@ function kbm_products_data() {
 			'vars' => 'TRAINERS',
 			'short' => $ul( array( 'Ty wybierasz trenera', 'Cena zależy od trenera: 150 lub 200 zł', 'Bez zobowiązań' ) ),
 			'desc' => '<p>Trening personalny z wybranym trenerem KB Motion. Cena zależy od trenera: 200 zł (Piotr, Tomasz, Patryk, Kasia) lub 150 zł (Gustave, Aleksander, Paweł). Termin potwierdzamy telefonicznie w ciągu jednego dnia roboczego.</p>' ),
-		array( 'slug' => 'pakiet-10-treningow-personalnych', 'name' => 'Pakiet 10 treningów personalnych', 'cat' => 'treningi-personalne', 'type' => 'simple', 'price' => 1500, 'unit' => '', 'order' => 3,
+		array( 'slug' => 'trening-personalny-dla-dwoch-osob', 'name' => 'Trening personalny dla dwóch osób', 'cat' => 'treningi-personalne', 'type' => 'variable', 'order' => 3, 'attr' => 'Trener',
+			'vars' => 'TRAINERS_DUO',
+			'short' => $ul( array( 'Trening z wybranym trenerem dla 2 osób', '250 zł za trening, niezależnie od trenera', 'Bez zobowiązań' ) ),
+			'desc' => '<p>Trening personalny dla dwóch osób z wybranym trenerem KB Motion. Cena za jeden wspólny trening dla obu osób wynosi 250 zł, niezależnie od wybranego trenera. Warunki są takie same jak przy treningu dla jednej osoby: termin potwierdzamy telefonicznie w ciągu jednego dnia roboczego, a każda z osób potrzebuje aktywnego karnetu na wejście do studia.</p>' ),
+		array( 'slug' => 'pakiet-10-treningow-personalnych', 'name' => 'Pakiet 10 treningów personalnych', 'cat' => 'treningi-personalne', 'type' => 'simple', 'price' => 1500, 'unit' => '', 'order' => 4,
 			'short' => $ul( array( '10 treningów z trenerem klubowym', 'Trenera dobiera klub', 'Wymagany aktywny karnet' ) ),
 			'desc' => '<p>Pakiet 10 treningów personalnych z trenerem klubowym. Trenera dobiera klub, dopasowując go do Twojego celu i dostępnych terminów. Jeśli chcesz trenować z konkretną osobą, wybierz pojedynczy trening personalny z wybranym trenerem. Przy pakiecie wymagany jest aktywny karnet (np. Siłownia z trenerem).</p>' ),
+		array( 'slug' => 'pakiet-10-treningow-personalnych-dla-dwoch-osob', 'name' => 'Pakiet 10 treningów personalnych dla dwóch osób', 'cat' => 'treningi-personalne', 'type' => 'simple', 'price' => 2500, 'unit' => '', 'order' => 5,
+			'short' => $ul( array( '10 wspólnych treningów dla 2 osób', 'Z trenerem klubowym, trenera dobiera klub', 'Każda osoba potrzebuje aktywnego karnetu' ) ),
+			'desc' => '<p>Pakiet 10 treningów personalnych dla dwóch osób z trenerem klubowym. Warunki są takie same jak w pakiecie dla jednej osoby: trenera dobiera klub, dopasowując go do Waszego celu i dostępnych terminów. Każda z osób potrzebuje aktywnego karnetu (np. Siłownia z trenerem). Jeśli chcecie trenować z konkretną osobą, wybierzcie pojedynczy trening personalny dla dwóch osób z wybranym trenerem.</p>' ),
 
 		/* ----- Bufet ----- */
 		array( 'slug' => 'woda-naleczowianka-niegazowana-0-5-l', 'name' => 'Woda Nałęczowianka niegazowana 0,5 l', 'cat' => 'napoje', 'type' => 'simple', 'price' => 4, 'img' => 'p_woda05', 'stock' => 10, 'deposit' => 1, 'order' => 1,
