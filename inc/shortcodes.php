@@ -110,7 +110,7 @@ add_shortcode( 'kbm_pricing', function ( $atts ) {
 			$was = $sale_to ? '<del class="kbm-price__was">' . wp_kses_post( wc_price( wc_get_price_to_display( $p, array( 'price' => $p->get_regular_price() ) ), array( 'decimals' => 0 ) ) ) . '</del> ' : '';
 			echo '<p class="kbm-price__amount">' . $was . wp_kses_post( wc_price( wc_get_price_to_display( $p ), array( 'decimals' => 0 ) ) ) . ( $unit ? '<small> ' . esc_html( $unit ) . '</small>' : '' ) . '</p>';
 			if ( $sale_to ) {
-				echo '<p class="kbm-price__note">Cena przy zakupie do ' . esc_html( wp_date( 'j.m.Y', $sale_to->getTimestamp() ) ) . ', później ' . wp_kses_post( wc_price( wc_get_price_to_display( $p, array( 'price' => $p->get_regular_price() ) ), array( 'decimals' => 0 ) ) ) . esc_html( $unit ? ' ' . $unit : '' ) . '.</p>';
+				echo '<p class="kbm-price__note">Cena przy zakupie do ' . esc_html( wp_date( 'j.m.Y', $sale_to->getTimestamp() ) ) . ', później ' . wp_kses_post( wc_price( wc_get_price_to_display( $p, array( 'price' => $p->get_regular_price() ) ), array( 'decimals' => 0 ) ) ) . esc_html( $unit ? ' ' . rtrim( $unit, '.' ) : '' ) . '.</p>';
 			}
 			echo '<input type="hidden" name="add-to-cart" value="' . (int) $p->get_id() . '">';
 		}
