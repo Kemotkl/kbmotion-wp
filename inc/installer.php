@@ -890,3 +890,19 @@ add_action( 'init', function () {
 		kbm_write_status();
 	}
 }, 5 );
+
+/* One-shot: the domain switch rewrote Stripe's "verified Apple Pay domain" to kbmotion.pl without registering it in Stripe. Reset so the Stripe plugin registers kbmotion.pl itself. */
+add_action( 'init', function () {
+	if ( get_option( 'kbm_applepay_reset' ) === '1' ) {
+		return;
+	}
+	$o = get_option( 'woocommerce_stripe_settings', array() );
+	if ( ! is_array( $o ) || ! $o ) {
+		return;
+	}
+	$o['apple_pay_verified_domain'] = '';
+	$o['apple_pay_domain_set']      = 'no';
+	update_option( 'woocommerce_stripe_settings', $o );
+	update_option( 'kbm_applepay_reset', '1', false );
+	flush_rewrite_rules( false );
+}, 3 );
