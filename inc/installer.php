@@ -379,12 +379,18 @@ function kbm_install_trainers() {
 			'menu_order'  => $order,
 			'post_excerpt' => $role,
 		);
-		if ( ! $id ) {
+		$bios = function_exists( 'kbm_trainer_bios_raw' ) ? kbm_trainer_bios_raw() : array();
+		if ( ! empty( $bios[ $name ] ) ) {
+			$args['post_content'] = kbm_trainer_bio_blocks( $bios[ $name ] );
+			$args['post_excerpt'] = kbm_trainer_bio_teaser( $bios[ $name ] );
+		}
+		if ( ! $id && empty( $args['post_content'] ) ) {
 			$args['post_content'] = '<!-- wp:paragraph --><p>' . esc_html( $first ) . ' ' . ( $owner ? 'współtworzy KB Motion i prowadzi treningi personalne w naszym studiu przy ul. Nyskiej 61A.' : ( false !== strpos( $role, 'grupowe' ) ? 'prowadzi zajęcia grupowe w KB Motion.' : 'prowadzi treningi personalne w KB Motion.' ) ) . '</p><!-- /wp:paragraph -->';
-		} else {
+		}
+		if ( $id ) {
 			$args['ID'] = $id;
 		}
-		$id = wp_insert_post( $args );
+		$id = wp_insert_post( wp_slash( $args ) );
 		update_post_meta( $id, '_kbm_role', $role );
 		update_post_meta( $id, '_kbm_tags', $tags );
 		update_post_meta( $id, '_kbm_price', $price ?: '' );
@@ -781,7 +787,7 @@ add_action( 'init', function () {
 	if ( version_compare( $v, KBM_VERSION, '>=' ) || ! get_option( 'kbm_installed' ) ) {
 		return;
 	}
-	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : ( version_compare( $v, '1.0.4', '<' ) ? array( 'media', 'trainers', 'woo', 'pages', 'posts', 'finalize' ) : ( version_compare( $v, '1.0.14', '<' ) ? array( 'woo', 'finalize' ) : ( version_compare( $v, '1.0.19', '<' ) ? array( 'pages', 'finalize' ) : ( version_compare( $v, '1.0.25', '<' ) ? array( 'media', 'trainers', 'finalize' ) : array( 'finalize' ) ) ) ) );
+	$rerun = version_compare( $v, '1.0.1', '<' ) ? array( 'woo', 'pages', 'finalize' ) : ( version_compare( $v, '1.0.4', '<' ) ? array( 'media', 'trainers', 'woo', 'pages', 'posts', 'finalize' ) : ( version_compare( $v, '1.0.14', '<' ) ? array( 'woo', 'finalize' ) : ( version_compare( $v, '1.0.19', '<' ) ? array( 'pages', 'finalize' ) : ( version_compare( $v, '1.0.26', '<' ) ? array( 'media', 'trainers', 'finalize' ) : array( 'finalize' ) ) ) ) );
 	$done  = array_values( array_diff( (array) get_option( 'kbm_auto_done', array() ), $rerun ) );
 	update_option( 'kbm_auto_done', $done, false );
 	update_option( 'kbm_auto_install', 1, false );

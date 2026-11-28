@@ -170,7 +170,15 @@ add_shortcode( 'kbm_trainers', function ( $atts ) {
 		if ( $ex && $ex !== $role ) {
 			echo '<p class="kbm-trainer__bio">' . esc_html( $ex ) . '</p>';
 		}
-		echo '<a class="kbm-link-arrow" href="' . esc_url( add_query_arg( 'trener', rawurlencode( $name ), $book ) . '#rezerwacja' ) . '">Umów trening z ' . esc_html( $first ) . '</a>';
+		$has_bio = $ex && $ex !== $role;
+		if ( $has_bio ) {
+			echo '<a class="kbm-link-arrow" href="' . esc_url( get_permalink() ) . '">Poznaj ' . esc_html( function_exists( 'kbm_name_accusative' ) ? kbm_name_accusative( $first ) : $first ) . '</a> ';
+		}
+		if ( $price ) {
+			echo '<a class="kbm-link-arrow" href="' . esc_url( add_query_arg( 'trener', rawurlencode( $name ), $book ) . '#rezerwacja' ) . '">Umów trening z ' . esc_html( function_exists( 'kbm_name_instrumental' ) ? kbm_name_instrumental( $first ) : $first ) . '</a>';
+		} else {
+			echo '<a class="kbm-link-arrow" href="' . esc_url( kbm_url( 'grafik-zajec' ) ) . '">Grafik zajęć</a>';
+		}
 		echo '</div></article>';
 	}
 	wp_reset_postdata();
