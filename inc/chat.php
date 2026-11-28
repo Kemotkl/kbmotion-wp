@@ -65,7 +65,7 @@ function kbm_knowledge() {
 	if ( kbm_opt( 'chat_extra' ) ) {
 		$k[] = "DODATKOWE INFORMACJE OD STUDIA:\n" . kbm_opt( 'chat_extra' );
 	}
-	$k[] = 'LINKI: karnety ' . kbm_url( 'karnety' ) . ' | treningi personalne i rezerwacja trenera ' . kbm_url( 'treningi-personalne' ) . ' | bezpłatna konsultacja ' . kbm_url( 'trening-probny' ) . ' | grafik ' . kbm_url( 'grafik-zajec' ) . ' | trenerzy ' . kbm_url( 'trenerzy' ) . ' | bufet ' . kbm_url( 'bufet' ) . ' | kontakt ' . kbm_url( 'kontakt' );
+	$k[] = 'LINKI: karnety ' . kbm_url( 'karnety' ) . ' | treningi personalne i rezerwacja trenera ' . kbm_url( 'treningi-personalne' ) . ' | bezpłatna konsultacja online ' . kbm_url( 'trening-probny' ) . ' | grafik ' . kbm_url( 'grafik-zajec' ) . ' | trenerzy ' . kbm_url( 'trenerzy' ) . ' | bufet ' . kbm_url( 'bufet' ) . ' | kontakt ' . kbm_url( 'kontakt' );
 	return implode( "\n\n", $k );
 }
 
@@ -74,7 +74,7 @@ function kbm_chat_system_prompt() {
 		. "Zasady:\n"
 		. "- Odpowiadaj po polsku (albo w języku rozmówcy), ciepło i konkretnie, w 2–5 krótkich zdaniach. Bez markdownu, nagłówków i tabel.\n"
 		. "- Opieraj się wyłącznie na wiedzy poniżej. Jeśli czegoś nie wiesz (np. parking, prysznice, konkretne terminy trenera), powiedz to wprost i zaproponuj kontakt przez formularz lub e-mail.\n"
-		. "- Pomóż wybrać najlepszą opcję i zaproponuj następny krok: zakup karnetu, bezpłatną konsultację albo rezerwację trenera. Podawaj ceny dokładnie tak, jak w cenniku.\n"
+		. "- Pomóż wybrać najlepszą opcję i zaproponuj następny krok: zakup karnetu, bezpłatną konsultację online, konsultację z treningiem w studiu (99 zł) albo rezerwację trenera. Konsultacja online jest bezpłatna, konsultacja w studiu jest zawsze płatna 99 zł i obejmuje pierwszy trening. Podawaj ceny dokładnie tak, jak w cenniku.\n"
 		. "- Nie udzielaj porad medycznych. Przy kontuzjach i chorobach zaproponuj konsultację z trenerem i ankietę PAR-Q.\n"
 		. "- Nie zbieraj danych osobowych w czacie. Do zapisu odsyłaj do formularza.\n\n"
 		. "WIEDZA O STUDIU:\n" . kbm_knowledge();
@@ -86,7 +86,7 @@ function kbm_chat_actions( $text ) {
 	$map = array(
 		array( '/karnet|cen|koszt|ile|płat|wejści|siłowni/u', 'Zobacz karnety', kbm_url( 'karnety' ) ),
 		array( '/trener|trening personal|pakiet|indywidual|kontuzj|redukc|schud/u', 'Umów trening', kbm_url( 'treningi-personalne' ) . '#rezerwacja' ),
-		array( '/próbn|konsultac|pierwsz|zacz/u', 'Bezpłatna konsultacja', kbm_url( 'trening-probny' ) ),
+		array( '/próbn|konsultac|pierwsz|zacz/u', 'Bezpłatna konsultacja online', kbm_url( 'trening-probny' ) ),
 		array( '/grafik|zajęci|grupow|hyrox/u', 'Grafik zajęć', kbm_url( 'grafik-zajec' ) ),
 		array( '/bufet|kaw|wod|odżyw|białk|kreatyn|ręcznik/u', 'Bufet', kbm_url( 'bufet' ) ),
 		array( '/adres|dojazd|gdzie|kontakt|telefon|mail|parking/u', 'Kontakt i dojazd', kbm_url( 'kontakt' ) ),

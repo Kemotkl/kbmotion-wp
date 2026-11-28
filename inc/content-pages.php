@@ -28,6 +28,13 @@ function kbm_head( $eyebrow, $title, $lead = '', $center = false, $tag = 'h2' ) 
 	return kbm_html( '<div class="kbm-section-head' . ( $center ? ' is-center' : '' ) . ' kbm-reveal"><p class="kbm-eyebrow">' . $eyebrow . '</p><' . $tag . '>' . $title . '</' . $tag . '>' . ( $lead ? '<p class="kbm-lead">' . $lead . '</p>' : '' ) . '</div>' );
 }
 
+function kbm_consult_compare_html() {
+	return kbm_html( '<div class="kbm-consult" role="group" aria-label="Jak zacząć: konsultacja online lub trening w studiu">'
+		. '<div class="kbm-consult__card"><p class="kbm-eyebrow">Online</p><h3>Konsultacja online</h3><p class="kbm-consult__price">0 zł</p><p>Rozmowa z trenerem o Twoim celu, zdrowiu i dotychczasowych treningach. Doradzimy, od czego zacząć i jaki karnet lub pakiet wybrać.</p><a class="kbm-btn kbm-btn--ghost" href="/trening-probny/#zapis">Zapisz się bezpłatnie</a></div>'
+		. '<div class="kbm-consult__card is-gold"><p class="kbm-eyebrow">W studiu, ul. Nyska 61A</p><h3>Konsultacja + trening</h3><p class="kbm-consult__price">99 zł</p><p>Ok. 60 minut z wybranym trenerem na miejscu: konsultacja, pierwszy trening wdrożeniowy, ocena techniki i plan na start.</p><a class="kbm-btn kbm-btn--gold" href="/treningi-personalne/#pakiety">Kup za 99 zł</a></div>'
+		. '</div>' );
+}
+
 function kbm_hero( $img, $eyebrow, $title, $lead, $buttons, $meta = '' ) {
 	return '<!-- wp:cover {"url":"' . $img . '","dimRatio":60,"minHeight":88,"minHeightUnit":"vh","contentPosition":"bottom left","align":"full","className":"kbm-hero","layout":{"type":"constrained"}} -->' . "\n"
 		. '<div class="wp-block-cover alignfull has-custom-content-position is-position-bottom-left kbm-hero" style="min-height:88vh"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-60 has-background-dim"></span><img class="wp-block-cover__image-background" alt="" src="' . $img . '" data-object-fit="cover" fetchpriority="high"/><div class="wp-block-cover__inner-container">'
@@ -72,7 +79,7 @@ function kbm_pages_content() {
 		'is-sand'
 	);
 	$home .= kbm_section(
-		kbm_html( '<div class="kbm-split is-reverse"><div class="kbm-reveal"><p class="kbm-eyebrow">Treningi personalne</p><h2>Efekty bez zgadywania</h2><p class="kbm-lead">Redukcja tkanki tłuszczowej, siła, mobilność albo powrót do formy. Zaczynamy od konsultacji i treningu wdrożeniowego, a potem trener prowadzi Cię krok po kroku.</p><ul class="kbm-checklist"><li>Analiza celu, techniki i możliwości</li><li>Plan treningowy dopasowany do Twojego tygodnia</li><li>Bezpieczeństwo także przy kontuzjach</li><li>Pakiet 10 treningów z trenerem klubowym: 1500 zł</li></ul><div class="kbm-btn-row"><a class="kbm-btn kbm-btn--gold" href="/treningi-personalne/">Zacznij od 99 zł</a><a class="kbm-btn kbm-btn--ghost" href="/trening-probny/">Bezpłatna konsultacja</a></div></div><div class="kbm-reveal"><img src="{{img:studio3}}" alt="Trening personalny w KB Motion Wrocław" loading="lazy" width="900" height="1125"></div></div>' )
+		kbm_html( '<div class="kbm-split is-reverse"><div class="kbm-reveal"><p class="kbm-eyebrow">Treningi personalne</p><h2>Efekty bez zgadywania</h2><p class="kbm-lead">Redukcja tkanki tłuszczowej, siła, mobilność albo powrót do formy. Zaczynamy od konsultacji i treningu wdrożeniowego, a potem trener prowadzi Cię krok po kroku.</p><ul class="kbm-checklist"><li>Analiza celu, techniki i możliwości</li><li>Plan treningowy dopasowany do Twojego tygodnia</li><li>Bezpieczeństwo także przy kontuzjach</li><li>Pakiet 10 treningów z trenerem klubowym: 1500 zł</li></ul><div class="kbm-btn-row"><a class="kbm-btn kbm-btn--gold" href="/treningi-personalne/">Zacznij od 99 zł</a><a class="kbm-btn kbm-btn--ghost" href="/trening-probny/">Konsultacja online 0 zł</a></div></div><div class="kbm-reveal"><img src="{{img:studio3}}" alt="Trening personalny w KB Motion Wrocław" loading="lazy" width="900" height="1125"></div></div>' )
 	);
 	$home .= kbm_section(
 		kbm_head( 'Jak zacząć', 'Trzy kroki do pierwszego treningu', '', true )
@@ -107,7 +114,7 @@ function kbm_pages_content() {
 		'is-sand'
 	);
 	$k .= kbm_section(
-		kbm_html( '<div class="kbm-inline-cta" style="margin:0"><p class="kbm-eyebrow">Trenujesz z trenerem?</p><h2>Treningi personalne od 150 zł</h2><p>Zacznij od pierwszego treningu wdrożeniowego z konsultacją za 99 zł. Cena kolejnych treningów zależy od trenera (150 lub 200 zł), a pakiet 10 treningów z trenerem klubowym kosztuje 1500 zł. Do treningów potrzebny jest karnet, najlepiej Siłownia z trenerem.</p><div class="kbm-btn-row"><a class="kbm-btn kbm-btn--gold" href="/treningi-personalne/">Zobacz treningi personalne</a><a class="kbm-btn kbm-btn--ghost" href="/trening-probny/">Bezpłatna konsultacja</a></div></div>' )
+		kbm_html( '<div class="kbm-inline-cta" style="margin:0"><p class="kbm-eyebrow">Trenujesz z trenerem?</p><h2>Treningi personalne od 150 zł</h2><p>Konsultacja online jest bezpłatna. Konsultacja z pierwszym treningiem w studiu kosztuje 99 zł. Cena kolejnych treningów zależy od trenera (150 lub 200 zł), a pakiet 10 treningów z trenerem klubowym kosztuje 1500 zł. Do treningów potrzebny jest karnet, najlepiej Siłownia z trenerem.</p><div class="kbm-btn-row"><a class="kbm-btn kbm-btn--gold" href="/treningi-personalne/">Zobacz treningi personalne</a><a class="kbm-btn kbm-btn--ghost" href="/trening-probny/">Konsultacja online 0 zł</a></div></div>' )
 	);
 	$k .= kbm_section(
 		kbm_head( 'Pytania o karnety', 'Wszystko, co warto wiedzieć' ) . kbm_sc( '[kbm_faq set="karnety"]' )
@@ -139,7 +146,7 @@ function kbm_pages_content() {
 	);
 	$t .= kbm_section(
 		kbm_head( 'Jak pracujemy', 'Od pierwszej rozmowy do efektów', '', true )
-		. kbm_html( '<div class="kbm-steps"><div class="kbm-step"><h3>Konsultacja</h3><p>Poznajemy Twój cel, historię treningową i zdrowie (ankieta PAR-Q).</p></div><div class="kbm-step"><h3>Trening wdrożeniowy</h3><p>Sprawdzamy technikę i możliwości. Dostajesz plan na najbliższe tygodnie.</p></div><div class="kbm-step"><h3>Regularna praca</h3><p>Trener pilnuje progresji, techniki i motywacji. Ty widzisz efekty.</p></div></div>' ),
+		. kbm_html( '<div class="kbm-steps"><div class="kbm-step"><h3>Konsultacja</h3><p>Poznajemy Twój cel, historię treningową i zdrowie (ankieta PAR-Q). Online za darmo albo w studiu razem z pierwszym treningiem za 99 zł.</p></div><div class="kbm-step"><h3>Trening wdrożeniowy</h3><p>Sprawdzamy technikę i możliwości. Dostajesz plan na najbliższe tygodnie.</p></div><div class="kbm-step"><h3>Regularna praca</h3><p>Trener pilnuje progresji, techniki i motywacji. Ty widzisz efekty.</p></div></div>' ) . kbm_consult_compare_html(),
 		'is-dark'
 	);
 	$t .= kbm_section(
@@ -159,7 +166,7 @@ function kbm_pages_content() {
 		'is-dark'
 	);
 	$tr .= kbm_section( kbm_head( 'Trenerzy', 'Nasi trenerzy', 'Każdy z naszych trenerów to ekspert w swojej dziedzinie, z pasją do świadomego ruchu i indywidualnego podejścia do podopiecznych.' ) . kbm_sc( '[kbm_trainers owners="0"]' ) );
-	$tr .= kbm_section( kbm_html( '<div class="kbm-inline-cta" style="margin:0"><p class="kbm-eyebrow">Gotów na zmianę?</p><h2>Umów pierwszą konsultację</h2><p>Wspólnie z trenerem stworzysz indywidualny plan treningowy dopasowany do Twojego celu i kalendarza.</p><div class="kbm-btn-row"><a class="kbm-btn kbm-btn--gold" href="/trening-probny/">Bezpłatna konsultacja</a><a class="kbm-btn kbm-btn--ghost" href="/treningi-personalne/#rezerwacja">Zarezerwuj trenera</a></div></div>' ) );
+	$tr .= kbm_section( kbm_html( '<div class="kbm-inline-cta" style="margin:0"><p class="kbm-eyebrow">Gotów na zmianę?</p><h2>Umów pierwszą konsultację</h2><p>Konsultacja online jest bezpłatna. Konsultacja z pierwszym treningiem w studiu kosztuje 99 zł. Wspólnie z trenerem stworzysz plan dopasowany do Twojego celu i kalendarza.</p><div class="kbm-btn-row"><a class="kbm-btn kbm-btn--gold" href="/trening-probny/">Konsultacja online 0 zł</a><a class="kbm-btn kbm-btn--ghost" href="/treningi-personalne/#rezerwacja">Zarezerwuj trenera</a></div></div>' ) );
 	$p['trenerzy'] = array( 'Trenerzy', $tr, 'page-landing', 'Poznaj trenerów personalnych KB Motion we Wrocławiu. Treningi personalne, zajęcia grupowe, przygotowanie motoryczne. Umów konsultację.', 'Trenerzy personalni Wrocław | KB Motion' );
 
 	/* ---------------- GRAFIK ---------------- */
@@ -203,7 +210,7 @@ function kbm_pages_content() {
 		kbm_head( 'Galeria', 'Zobacz studio', '250 m² przemyślanej przestrzeni: strefa siłowa, sala fitness i detale, o które zadbaliśmy.', false, 'h1' )
 		. kbm_html( '<div class="kbm-gallery"><figure><img src="{{img:hero}}" alt="Studio KB Motion" loading="lazy"></figure><figure><img src="{{img:studio1}}" alt="Wnętrze KB Motion" loading="lazy"></figure><figure><img src="{{img:studio2}}" alt="Strefa siłowa" loading="lazy"></figure><figure><img src="{{img:studio3}}" alt="Stanowisko treningowe" loading="lazy"></figure><figure><img src="{{img:studio4}}" alt="Sprzęt KB Motion" loading="lazy"></figure><figure><img src="{{img:studio5}}" alt="Sala fitness" loading="lazy"></figure><figure><img src="{{img:studio6}}" alt="Strefa treningowa" loading="lazy"></figure><figure><img src="{{img:studio7}}" alt="Detale wnętrza" loading="lazy"></figure><figure><img src="{{img:studio8}}" alt="KB Motion Wrocław" loading="lazy"></figure></div>' )
 	);
-	$gal .= kbm_section( kbm_html( '<div class="kbm-inline-cta" style="margin:0"><h2>Zobacz to na żywo</h2><p>Umów bezpłatną konsultację i obejrzyj studio z trenerem.</p>' . kbm_cta_html( 'Kup karnet', 'Umów trening' ) . '</div>' ) );
+	$gal .= kbm_section( kbm_html( '<div class="kbm-inline-cta" style="margin:0"><h2>Zobacz to na żywo</h2><p>Przyjdź na konsultację z pierwszym treningiem w studiu (99 zł) albo zacznij od bezpłatnej konsultacji online.</p>' . kbm_cta_html( 'Kup karnet', 'Umów trening' ) . '</div>' ) );
 	$p['galeria'] = array( 'Galeria', $gal, 'page-landing', 'Zdjęcia studia treningu personalnego KB Motion we Wrocławiu: strefa siłowa, sala fitness, wnętrze.', 'Galeria studia | KB Motion Wrocław' );
 
 	/* ---------------- KONTAKT ---------------- */
@@ -216,9 +223,9 @@ function kbm_pages_content() {
 
 	/* ---------------- TRENING PRÓBNY ---------------- */
 	$tp  = kbm_section(
-		kbm_html( '<div class="kbm-split" style="align-items:start"><div><p class="kbm-eyebrow">Bez zobowiązań</p><h1>Bezpłatna konsultacja z trenerem</h1><p class="kbm-lead">Przyjdź, poznaj studio i porozmawiaj z trenerem o swoim celu. Sprawdzimy, od czego zacząć, i zaproponujemy plan.</p><ul class="kbm-checklist"><li>Rozmowa o celu, zdrowiu i dotychczasowych treningach</li><li>Oprowadzenie po studiu</li><li>Rekomendacja karnetu lub pakietu treningów</li><li>Zero presji i zobowiązań</li></ul><p>Chcesz od razu potrenować? Wybierz <a href="/treningi-personalne/#pakiety">trening wdrożeniowy z konsultacją za 99 zł</a>.</p></div><div><h2 style="font-size:1.6rem">Zapisz się</h2>' ) . kbm_sc( '[kbm_form type="trial"]' ) . kbm_html( '</div></div>' )
+		kbm_html( '<div class="kbm-split" style="align-items:start"><div><p class="kbm-eyebrow">Bez zobowiązań</p><h1>Bezpłatna konsultacja online</h1><p class="kbm-lead">Porozmawiaj z trenerem online o swoim celu. Konsultacja online jest <strong>bezpłatna</strong>. Konsultacja w studiu razem z pierwszym treningiem kosztuje <strong>99 zł</strong>.</p><ul class="kbm-checklist"><li>Rozmowa o celu, zdrowiu i dotychczasowych treningach</li><li>Wskazówki, od czego zacząć</li><li>Rekomendacja karnetu lub pakietu treningów</li><li>Zero presji i zobowiązań</li></ul><p>Chcesz od razu potrenować w studiu? Wybierz <a href="/treningi-personalne/#pakiety">konsultację z treningiem wdrożeniowym za 99 zł</a>.</p></div><div id="zapis"><h2 style="font-size:1.6rem">Zapisz się na konsultację online</h2>' ) . kbm_sc( '[kbm_form type="trial"]' ) . kbm_html( '</div></div>' ) . kbm_html( '<h2 style="margin-top:56px">Online czy w studiu?</h2>' ) . kbm_consult_compare_html()
 	);
-	$p['trening-probny'] = array( 'Bezpłatna konsultacja', $tp, 'page-landing', 'Zapisz się na bezpłatną konsultację z trenerem personalnym w KB Motion Wrocław. Poznaj studio i dowiedz się, od czego zacząć.', 'Bezpłatna konsultacja z trenerem | KB Motion Wrocław' );
+	$p['trening-probny'] = array( 'Bezpłatna konsultacja online', $tp, 'page-landing', 'Bezpłatna konsultacja online z trenerem personalnym KB Motion Wrocław. Konsultacja z pierwszym treningiem w studiu: 99 zł.', 'Bezpłatna konsultacja online z trenerem | KB Motion Wrocław' );
 
 	/* ---------------- FAQ ---------------- */
 	$f  = kbm_section(

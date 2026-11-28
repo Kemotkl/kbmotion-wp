@@ -83,7 +83,7 @@ function kbm_products_data() {
 			'vars' => array( array( 'Siłownia', 49, '' ), array( 'Zajęcia grupowe', 45, '' ) ),
 			'short' => $ul( array( 'Jedno wejście w godzinach otwarcia', 'Idealne na start lub dla gości', 'Bez zobowiązań' ) ),
 			'desc' => '<p>Jednorazowe wejście na siłownię w godzinach otwarcia studia albo na jedne dowolnie wybrane zajęcia grupowe.</p>' ),
-		array( 'slug' => 'karnet-trenerski', 'name' => 'Karnet trenerski', 'cat' => 'dla-trenerow', 'type' => 'simple', 'price' => 1300, 'unit' => '/ mies.', 'order' => 6, 'sold_ind' => 1, 'cta' => 'Kup karnet trenerski',
+		array( 'slug' => 'karnet-trenerski', 'name' => 'Karnet trenerski', 'cat' => 'dla-trenerow', 'type' => 'simple', 'price' => 1300, 'sale' => array( 1000, '2026-12-31 23:59:59' ), 'unit' => '/ mies.', 'order' => 6, 'sold_ind' => 1, 'cta' => 'Kup karnet trenerski',
 			'short' => $ul( array( 'Prowadzenie treningów personalnych w studiu', 'Ważny 1 miesiąc', 'Dla trenerów z własnymi podopiecznymi' ) ),
 			'desc' => '<p>Karnet umożliwiający prowadzenie treningów personalnych na terenie studia KB Motion przez trenerów zewnętrznych.</p>' ),
 

@@ -15,8 +15,8 @@ function kbm_faq_data() {
 			array( 'Czy mogę odstąpić od umowy?', 'Kupując online jako konsument, możesz odstąpić od umowy w ciągu 14 dni. Jeśli na Twoje wyraźne żądanie zaczniesz korzystać z usługi wcześniej, zwracamy kwotę proporcjonalną do niewykorzystanej części. Szczegóły znajdziesz w regulaminie sklepu.' ),
 		),
 		'treningi' => array(
-			array( 'Jak zacząć współpracę z trenerem?', 'Najlepiej od treningu wdrożeniowego z konsultacją (ok. 60 minut, 99 zł). Poznamy Twoje cele, sprawdzimy technikę i ułożymy plan. Możesz też zapisać się na bezpłatną konsultację.' ),
-			array( 'Ile kosztuje trening personalny?', 'Pierwszy trening wdrożeniowy z konsultacją kosztuje 99 zł. Kolejne treningi zależą od trenera: 200 zł (Piotr, Tomasz, Patryk, Kasia) lub 150 zł (Gustave, Aleksander, Paweł). Pakiet 10 treningów z trenerem klubowym kosztuje 1500 zł.' ),
+			array( 'Jak zacząć współpracę z trenerem?', 'Masz dwie możliwości. Konsultacja online z trenerem jest bezpłatna. Konsultacja w studiu razem z pierwszym treningiem wdrożeniowym (ok. 60 minut) kosztuje 99 zł: poznamy Twoje cele, sprawdzimy technikę i ułożymy plan.' ),
+			array( 'Ile kosztuje trening personalny?', 'Konsultacja online jest bezpłatna. Konsultacja z pierwszym treningiem w studiu kosztuje 99 zł. Kolejne treningi zależą od trenera: 200 zł (Piotr, Tomasz, Patryk, Kasia) lub 150 zł (Gustave, Aleksander, Paweł). Pakiet 10 treningów z trenerem klubowym kosztuje 1500 zł.' ),
 			array( 'Czy do treningów personalnych potrzebuję karnetu?', 'Tak, do treningów i pakietów potrzebny jest aktywny karnet na wejście do studia. Najkorzystniejszy jest karnet Siłownia z trenerem (219 zł/mies.) albo Siłownia 4 wejścia w miesiącu (149 zł).' ),
 			array( 'Czy mogę wybrać konkretnego trenera?', 'Tak. Przy pojedynczym treningu wybierasz trenera przy zakupie albo w formularzu rezerwacji, gdzie przy każdym nazwisku widać cenę. W pakiecie 10 treningów trenera dobiera klub.' ),
 			array( 'Jak odwołać trening?', 'Trening można odwołać lub przełożyć najpóźniej 24 godziny przed jego rozpoczęciem. Później trening może zostać uznany za zrealizowany.' ),
@@ -71,7 +71,10 @@ add_shortcode( 'kbm_pricing', function ( $atts ) {
 		$featured = $p->is_featured();
 		$unit     = $p->get_meta( '_kbm_unit' );
 		echo '<article class="kbm-price' . ( $featured ? ' is-featured' : '' ) . '">';
-		if ( $featured ) {
+		$sale_to = ( ! $p->is_type( 'variable' ) && $p->is_on_sale() ) ? $p->get_date_on_sale_to() : null;
+		if ( $sale_to ) {
+			echo '<span class="kbm-price__badge is-sale">Promocja do ' . esc_html( wp_date( 'j.m.Y', $sale_to->getTimestamp() ) ) . '</span>';
+		} elseif ( $featured ) {
 			echo '<span class="kbm-price__badge">Najczęściej wybierany</span>';
 		}
 		echo '<h3 class="kbm-price__name">' . esc_html( $p->get_name() ) . '</h3>';
@@ -104,7 +107,11 @@ add_shortcode( 'kbm_pricing', function ( $atts ) {
 			echo '</fieldset>';
 			echo '<input type="hidden" name="add-to-cart" value="' . (int) $p->get_id() . '">';
 		} else {
-			echo '<p class="kbm-price__amount">' . wp_kses_post( wc_price( wc_get_price_to_display( $p ), array( 'decimals' => 0 ) ) ) . ( $unit ? '<small> ' . esc_html( $unit ) . '</small>' : '' ) . '</p>';
+			$was = $sale_to ? '<del class="kbm-price__was">' . wp_kses_post( wc_price( wc_get_price_to_display( $p, array( 'price' => $p->get_regular_price() ) ), array( 'decimals' => 0 ) ) ) . '</del> ' : '';
+			echo '<p class="kbm-price__amount">' . $was . wp_kses_post( wc_price( wc_get_price_to_display( $p ), array( 'decimals' => 0 ) ) ) . ( $unit ? '<small> ' . esc_html( $unit ) . '</small>' : '' ) . '</p>';
+			if ( $sale_to ) {
+				echo '<p class="kbm-price__note">Cena przy zakupie do ' . esc_html( wp_date( 'j.m.Y', $sale_to->getTimestamp() ) ) . ', później ' . wp_kses_post( wc_price( wc_get_price_to_display( $p, array( 'price' => $p->get_regular_price() ) ), array( 'decimals' => 0 ) ) ) . esc_html( $unit ? ' ' . $unit : '' ) . '.</p>';
+			}
 			echo '<input type="hidden" name="add-to-cart" value="' . (int) $p->get_id() . '">';
 		}
 		$desc = $p->get_short_description();
@@ -322,3 +329,11 @@ add_shortcode( 'kbm_social', function () {
 add_filter( 'render_block_core/shortcode', function ( $content ) {
 	return do_shortcode( $content );
 } );
+
+/* Theme footer label: make clear the free consultation is online (theme files are not redeployed separately). */
+add_filter( 'render_block', function ( $html, $block ) {
+	if ( 'core/template-part' === ( $block['blockName'] ?? '' ) && 'footer' === ( $block['attrs']['slug'] ?? '' ) ) {
+		$html = str_replace( '>Bezpłatna konsultacja<', '>Bezpłatna konsultacja online<', $html );
+	}
+	return $html;
+}, 10, 2 );

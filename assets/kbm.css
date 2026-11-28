@@ -177,3 +177,13 @@
 .kbm-short ul{list-style:none;margin:0 0 1.2em;padding:0}
 .kbm-short li{position:relative;padding-left:26px;margin:0 0 .45em}
 .kbm-short li::before{content:"";position:absolute;left:2px;top:.45em;width:12px;height:7px;border-left:2px solid var(--kbm-gold);border-bottom:2px solid var(--kbm-gold);transform:rotate(-45deg)}
+/* Sale price + consultation comparison (1.0.27) */
+.kbm-price__badge.is-sale{background:#b3261e;color:#fff}
+.kbm-price__was{font-size:.5em;font-weight:500;opacity:.55;margin-right:6px;vertical-align:middle}
+.kbm-price__note{font-size:.9rem;margin:-4px 0 12px;color:#b3261e;font-weight:600}
+.kbm-consult{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin:32px 0}
+.kbm-consult__card{display:flex;flex-direction:column;gap:6px;background:#fff;color:var(--kbm-text);border:1px solid #e7e1d6;border-radius:var(--kbm-radius);padding:28px 24px}
+.kbm-consult__card h3{margin:0}
+.kbm-consult__card .kbm-btn{margin-top:auto;align-self:flex-start}
+.kbm-consult__card.is-gold{border:2px solid var(--kbm-gold)}
+.kbm-consult__price{font-family:var(--wp--preset--font-family--display,inherit);font-size:2.6rem;line-height:1;margin:6px 0 8px;font-weight:600}
